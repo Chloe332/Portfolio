@@ -62,7 +62,7 @@ export function Projects() {
       tags: ['Python', 'TensorFlow', 'ROS2', 'YOLOv5', 'Pandas'],
       github: null,
       demo: null,
-      demoVideo: '/videos/navi.mp4',
+      demoVideo: `${import.meta.env.BASE_URL}videos/navi.mp4`,
       featured: true,
       details: {
         overview:
