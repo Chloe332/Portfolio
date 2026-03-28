@@ -27,7 +27,7 @@ export function Hero() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, delay: 0.4 }}
       >
-        <div className="absolute inset-y-0 left-0 w-full md:w-[115%] lg:w-[115%] md:translate-x-[9%] lg:translate-x-[12%]">
+        <div className="absolute inset-y-0 left-0 w-full translate-y-80 sm:translate-y-32 md:translate-y-0 md:w-[115%] lg:w-[115%] md:translate-x-[8%] lg:translate-x-[12%]">
           <SplineScene
             scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
             className="w-full h-full"
