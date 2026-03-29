@@ -1,10 +1,13 @@
 import { motion } from 'motion/react';
-import { Github, Linkedin, Mail, Download, X } from 'lucide-react';
+import { Github, Mail, Download, X } from 'lucide-react';
 import { useState } from 'react';
 import { Highlight } from './ui/hero-highlight';
 
 export function About() {
   const [showResumeModal, setShowResumeModal] = useState(false);
+
+  const profileImageSrc = `${import.meta.env.BASE_URL}images/profile-picture.png`;
+  const resumePdfSrc = `${import.meta.env.BASE_URL}images/resume/chloe_resume.pdf`;
 
   return (
     <section id="about" className="py-20">
@@ -28,7 +31,7 @@ export function About() {
 
               <div className="flex gap-3">
                 <motion.a
-                  href="/images/resume/chloe_resume.pdf"
+                  href={resumePdfSrc}
                   download="chloe_resume.pdf"
                   className="px-4 py-2 bg-white text-blue-600 rounded-lg flex items-center gap-2 font-medium"
                   whileHover={{ scale: 1.05 }}
@@ -51,7 +54,7 @@ export function About() {
 
             <div className="p-4 bg-gray-50 h-[calc(90vh-100px)]">
               <iframe
-                src="/images/resume/chloe_resume.pdf"
+                src={resumePdfSrc}
                 title="Resume Preview"
                 className="w-full h-full rounded-lg border border-gray-200 bg-white"
               />
@@ -84,12 +87,12 @@ export function About() {
           >
             <div className="relative max-w-sm md:max-w-md">
               <img
-                src="/images/profile-picture.png"
+                src={profileImageSrc}
                 alt="Chloe Hallaert - Profile Picture"
                 className="rounded-2xl shadow-2xl w-full h-auto"
               />
-              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full blur-3xl opacity-30 -z-10"></div>
-              <div className="absolute -top-6 -left-6 w-24 h-24 bg-gradient-to-br from-pink-400 to-purple-400 rounded-full blur-2xl opacity-30 -z-10"></div>
+              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full blur-3xl opacity-30 -z-10" />
+              <div className="absolute -top-6 -left-6 w-24 h-24 bg-gradient-to-br from-pink-400 to-purple-400 rounded-full blur-2xl opacity-30 -z-10" />
             </div>
           </motion.div>
 
@@ -140,13 +143,15 @@ export function About() {
               className="text-gray-600 leading-relaxed text-lg"
             >
               <Highlight>Honors Software Engineering</Highlight> student at the{' '}
-              <Highlight><strong>University of Waterloo</strong></Highlight> with a passion for{' '}
-              <Highlight>AI</Highlight>, <Highlight>Quant</Highlight>, <Highlight>Robotics</Highlight> and anything software
-              {' '}striving to solve real-world problems. My experience spans diverse
-              {' '}AI-driven and robotics related projects, including building
-              {' '}abstract retrieval APIs, deploying RAG pipelines with
-              {' '}vector databases, and developing object detection systems for
-              autonomous navigation.
+              <Highlight>
+                <strong>University of Waterloo</strong>
+              </Highlight>{' '}
+              with a passion for <Highlight>AI</Highlight>, <Highlight>Quant</Highlight>,{' '}
+              <Highlight>Robotics</Highlight> and anything software striving to solve
+              real-world problems. My experience spans diverse AI-driven and robotics
+              related projects, including building abstract retrieval APIs, deploying
+              RAG pipelines with vector databases, and developing object detection
+              systems for autonomous navigation.
             </motion.p>
 
             <motion.p
@@ -156,10 +161,10 @@ export function About() {
               transition={{ delay: 0.6 }}
               className="text-gray-600 leading-relaxed text-lg"
             >
-              I&apos;m a <Highlight>published author</Highlight> of two
-              educational children&apos;s books, and in my free time I enjoy
-              teaching as a math and English tutor, dancing, drawing, and learning
-              new languages (French, English, Chinese, American Sign Language).
+              I&apos;m a <Highlight>published author</Highlight> of two educational
+              children&apos;s books, and in my free time I enjoy teaching as a math
+              and English tutor, dancing, drawing, and learning new languages
+              (French, English, Chinese, American Sign Language).
             </motion.p>
 
             <motion.div
@@ -175,7 +180,6 @@ export function About() {
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {/* <Download size={20} /> */}
                 <span className="text-lg leading-none">→</span>
                 View Resume
               </motion.button>
@@ -192,18 +196,6 @@ export function About() {
                 GitHub
               </motion.a>
 
-              {/* <motion.a
-                href="https://www.linkedin.com/in/chloehallaert/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-3 bg-[#0077B5] text-white rounded-full flex items-center gap-2 shadow-lg hover:shadow-xl"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Linkedin size={20} />
-                LinkedIn
-              </motion.a> */}
-
               <motion.a
                 href="#contact"
                 className="px-6 py-3 bg-white text-blue-600 border-2 border-blue-600 rounded-full flex items-center gap-2 shadow-lg hover:shadow-xl"
@@ -214,33 +206,6 @@ export function About() {
                 Get in Touch
               </motion.a>
             </motion.div>
-
-            {/* <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.8 }}
-              className="flex gap-4 pt-2"
-            >
-              {[
-                { icon: Github, href: 'https://github.com/Chloe332', label: 'GitHub' },
-                { icon: Linkedin, href: 'https://www.linkedin.com/in/chloehallaert/', label: 'LinkedIn' },
-                { icon: Mail, href: 'mailto:cxhallae@uwaterloo.ca', label: 'Email' },
-              ].map(({ icon: Icon, href, label }) => (
-                <motion.a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-gray-700 hover:text-blue-600 shadow-md hover:shadow-lg border-2 border-gray-100"
-                  whileHover={{ scale: 1.1, y: -3 }}
-                  whileTap={{ scale: 0.9 }}
-                  aria-label={label}
-                >
-                  <Icon size={20} />
-                </motion.a>
-              ))}
-            </motion.div> */}
           </motion.div>
         </div>
       </div>
