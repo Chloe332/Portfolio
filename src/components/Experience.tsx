@@ -118,7 +118,7 @@ export function Experience() {
     },
     {
       type: 'work',
-      title: 'AI & Robotics Software Engineer',
+      title: 'AI & Robotics Project Member',
       organization: 'University of Maryland',
       period: 'July 2022',
       description:
@@ -145,7 +145,7 @@ export function Experience() {
     },
     {
       type: 'work',
-      title: 'NASA Team Leader and Engineer',
+      title: 'NASA Team Co-Leader and Project Member',
       organization: 'NASA',
       period: 'May 2021 - Feb 2022',
       description:
