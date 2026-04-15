@@ -118,7 +118,7 @@ export function Experience() {
     },
     {
       type: 'work',
-      title: 'AI & Robotics Project Member',
+      title: 'AI & Robotics # Member',
       organization: 'University of Maryland',
       period: 'July 2022',
       description:
