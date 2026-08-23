@@ -3,6 +3,10 @@ import { Github, Mail, Download, X } from 'lucide-react';
 import { useState } from 'react';
 import { Highlight } from './ui/hero-highlight';
 
+// Bump this whenever chloe_resume.pdf is replaced, so browsers (and the
+// embedded preview iframe) fetch the new file instead of a cached old one.
+const RESUME_CACHE_BUST = '2026-08-23';
+
 function scrollToContact() {
   const section = document.getElementById('contact');
   if (!section) return;
@@ -16,7 +20,9 @@ export function About() {
   const [showResumeModal, setShowResumeModal] = useState(false);
 
   const profileImageSrc = `${import.meta.env.BASE_URL}images/profile-picture.png`;
-  const resumePdfSrc = `${import.meta.env.BASE_URL}images/resume/chloe_resume.pdf`;
+  // Cache-bust so the embedded preview (and repeat visits) always pull the
+  // latest resume instead of a stale cached PDF from a previous version.
+  const resumePdfSrc = `${import.meta.env.BASE_URL}images/resume/chloe_resume.pdf?v=${RESUME_CACHE_BUST}`;
 
   return (
     <section id="about" className="py-20">
