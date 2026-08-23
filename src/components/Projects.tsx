@@ -428,16 +428,27 @@ export function Projects() {
               exit={{ opacity: 0 }}
               onClick={closeProject}
             >
-              <motion.div
-                className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[85vh] overflow-y-auto relative"
-                initial={{ scale: 0.92, y: 20 }}
-                animate={{ scale: 1, y: 0 }}
-                exit={{ scale: 0.92, y: 20 }}
-                onClick={(e) => e.stopPropagation()}
-                role="dialog"
-                aria-modal="true"
-                aria-label={`Project details: ${projects[selectedProject].title}`}
-              >
+              <div className="relative max-w-4xl w-full max-h-[85vh]">
+                <motion.button
+                  className="absolute -top-3 -right-3 z-20 w-11 h-11 flex items-center justify-center bg-black text-white rounded-full shadow-lg hover:bg-gray-700"
+                  onClick={closeProject}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  aria-label="Close project details"
+                >
+                  <X size={22} />
+                </motion.button>
+
+                <motion.div
+                  className="bg-white rounded-2xl shadow-2xl w-full max-h-[85vh] overflow-y-auto relative"
+                  initial={{ scale: 0.92, y: 20 }}
+                  animate={{ scale: 1, y: 0 }}
+                  exit={{ scale: 0.92, y: 20 }}
+                  onClick={(e) => e.stopPropagation()}
+                  role="dialog"
+                  aria-modal="true"
+                  aria-label={`Project details: ${projects[selectedProject].title}`}
+                >
                 <div className="relative h-64 overflow-hidden rounded-t-2xl">
                   <ImageWithFallback
                     src={projects[selectedProject].image}
@@ -445,16 +456,6 @@ export function Projects() {
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-
-                  <motion.button
-                    className="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white p-2 hover:bg-white/30 rounded-lg"
-                    onClick={closeProject}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    aria-label="Close project details"
-                  >
-                    <X size={24} />
-                  </motion.button>
 
                   <div className="absolute bottom-6 left-6 right-6">
                     <h3 className="text-3xl font-bold text-white mb-2">
@@ -637,7 +638,8 @@ export function Projects() {
                     )}
                   </div>
                 </div>
-              </motion.div>
+                </motion.div>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

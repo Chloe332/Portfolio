@@ -3,6 +3,15 @@ import { Github, Mail, Download, X } from 'lucide-react';
 import { useState } from 'react';
 import { Highlight } from './ui/hero-highlight';
 
+function scrollToContact() {
+  const section = document.getElementById('contact');
+  if (!section) return;
+
+  const navHeight = 64; // matches the fixed nav bar's h-16
+  const top = section.getBoundingClientRect().top + window.scrollY - navHeight;
+  window.scrollTo({ top, behavior: 'smooth' });
+}
+
 export function About() {
   const [showResumeModal, setShowResumeModal] = useState(false);
 
@@ -189,8 +198,8 @@ export function About() {
                 </span>
               </motion.a>
 
-              <motion.a
-                href="#contact"
+              <motion.button
+                onClick={scrollToContact}
                 className="group relative overflow-hidden px-6 py-3 bg-black text-white rounded-full flex items-center gap-2 shadow-lg hover:shadow-xl"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
@@ -200,7 +209,7 @@ export function About() {
                   <Mail size={20} />
                   Get in Touch
                 </span>
-              </motion.a>
+              </motion.button>
             </motion.div>
           </motion.div>
         </div>
