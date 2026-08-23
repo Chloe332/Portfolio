@@ -84,15 +84,15 @@ function VolunteerCard({ item }: { item: VolunteerItem }) {
       className="
         group
         flex flex-col sm:flex-row items-start gap-6
-        rounded-3xl border border-blue-100 bg-white/90 p-6
-        shadow-lg shadow-blue-100/40
+        rounded-3xl border border-[#2E6F40]/20 bg-white/90 p-6
+        shadow-lg shadow-[#2E6F40]/10
         transition-all duration-300
-        hover:shadow-xl hover:border-purple-200 hover:-translate-y-1
+        hover:shadow-xl hover:border-[#68BA7F]/40 hover:-translate-y-1
       "
     >
       {/* Left icon block */}
       <div className="flex-shrink-0">
-        <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-gradient-to-br from-blue-400 to-purple-600 text-white shadow-lg transition-transform duration-300 group-hover:scale-105">
+        <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-gradient-to-br from-[#2E6F40] to-[#68BA7F] text-white shadow-lg transition-transform duration-300 group-hover:scale-105">
           <HeartHandshake className="h-7 w-7" />
         </div>
       </div>
@@ -101,7 +101,7 @@ function VolunteerCard({ item }: { item: VolunteerItem }) {
       <div className="flex min-w-0 flex-1 flex-col">
         {/* Header */}
         <div>
-          <p className="text-xs font-semibold text-blue-500 tracking-wide uppercase">
+          <p className="text-xs font-semibold text-[#2E6F40] tracking-wide uppercase">
             {item.organization}
           </p>
           <h3 className="mt-1 text-lg font-semibold text-gray-900 leading-snug">
@@ -112,16 +112,16 @@ function VolunteerCard({ item }: { item: VolunteerItem }) {
         {/* Meta */}
         <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 text-sm text-gray-500">
           <div className="flex items-center gap-1.5">
-            <CalendarDays className="h-3.5 w-3.5 text-blue-500 shrink-0" />
+            <CalendarDays className="h-3.5 w-3.5 text-[#2E6F40] shrink-0" />
             <span>{item.period}</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <Clock className="h-3.5 w-3.5 text-purple-500 shrink-0" />
-            <span className="font-medium text-purple-600">{item.duration}</span>
+            <Clock className="h-3.5 w-3.5 text-[#2E6F40] shrink-0" />
+            <span className="font-medium text-[#2E6F40]">{item.duration}</span>
           </div>
           {item.location && (
             <div className="flex items-center gap-1.5">
-              <MapPin className="h-3.5 w-3.5 text-pink-500 shrink-0" />
+              <MapPin className="h-3.5 w-3.5 text-[#2E6F40] shrink-0" />
               <span>{item.location}</span>
             </div>
           )}
@@ -137,7 +137,7 @@ function VolunteerCard({ item }: { item: VolunteerItem }) {
           <ul className="mt-4 space-y-2">
             {item.highlights.map((highlight, hi) => (
               <li key={hi} className="flex gap-2 text-sm text-gray-600">
-                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 shrink-0" />
+                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-gradient-to-r from-[#2E6F40] to-[#68BA7F] shrink-0" />
                 <span>{highlight}</span>
               </li>
             ))}
@@ -150,7 +150,7 @@ function VolunteerCard({ item }: { item: VolunteerItem }) {
             {item.skills.map((skill) => (
               <span
                 key={skill}
-                className="rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700"
+                className="rounded-full border border-[#2E6F40]/30 bg-[#2E6F40]/10 px-3 py-1 text-xs font-medium text-[#2E6F40]"
               >
                 {skill}
               </span>
@@ -178,7 +178,7 @@ export default function VolunteeringSection({
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <h2 className="mt-5 text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+          <h2 className="mt-5 text-4xl font-bold bg-gradient-to-r from-[#253D2C] via-[#2E6F40] to-[#68BA7F] bg-clip-text text-transparent">
             {title}
           </h2>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">{subtitle}</p>

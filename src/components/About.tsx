@@ -26,14 +26,14 @@ export function About() {
             exit={{ scale: 0.9, y: 20 }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 flex justify-between items-center">
+            <div className="bg-black p-6 flex justify-between items-center">
               <h3 className="text-2xl font-bold text-white">Resume Preview</h3>
 
               <div className="flex gap-3">
                 <motion.a
                   href={resumePdfSrc}
                   download="chloe_resume.pdf"
-                  className="px-4 py-2 bg-white text-blue-600 rounded-lg flex items-center gap-2 font-medium"
+                  className="px-4 py-2 bg-white text-[#2E6F40] rounded-lg flex items-center gap-2 font-medium"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -64,19 +64,6 @@ export function About() {
       )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            About Me
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">Get to know me better</p>
-        </motion.div>
-
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -91,8 +78,8 @@ export function About() {
                 alt="Chloe Hallaert - Profile Picture"
                 className="rounded-2xl shadow-2xl w-full h-auto"
               />
-              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full blur-3xl opacity-30 -z-10" />
-              <div className="absolute -top-6 -left-6 w-24 h-24 bg-gradient-to-br from-pink-400 to-purple-400 rounded-full blur-2xl opacity-30 -z-10" />
+              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-[#68BA7F] to-[#2E6F40] rounded-full blur-3xl opacity-30 -z-10" />
+              <div className="absolute -top-6 -left-6 w-24 h-24 bg-gradient-to-br from-[#68BA7F] to-[#2E6F40] rounded-full blur-2xl opacity-30 -z-10" />
             </div>
           </motion.div>
 
@@ -109,7 +96,7 @@ export function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                className="text-blue-600 text-lg mb-2 font-medium"
+                className="text-[#2E6F40] text-lg mb-2 font-medium"
               >
                 Hello! I&apos;m
               </motion.p>
@@ -119,7 +106,7 @@ export function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
-                className="text-4xl font-bold mb-3 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent"
+                className="text-4xl font-bold mb-3 bg-gradient-to-r from-[#253D2C] via-[#2E6F40] to-[#68BA7F] bg-clip-text text-transparent"
               >
                 Chloe Hallaert
               </motion.h3>
@@ -176,34 +163,43 @@ export function About() {
             >
               <motion.button
                 onClick={() => setShowResumeModal(true)}
-                className="px-6 py-3 bg-blue-600 text-white rounded-full flex items-center gap-2 shadow-lg hover:shadow-xl"
+                className="group relative overflow-hidden px-6 py-3 bg-black text-white rounded-full flex items-center gap-2 shadow-lg hover:shadow-xl"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span className="text-lg leading-none">→</span>
-                View Resume
+                <span className="absolute inset-0 rounded-full bg-[linear-gradient(45deg,#a955ff,#ea51ff)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <span className="relative z-10 flex items-center gap-2">
+                  <span className="text-lg leading-none">→</span>
+                  View Resume
+                </span>
               </motion.button>
 
               <motion.a
                 href="https://github.com/Chloe332"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 bg-gray-900 text-white rounded-full flex items-center gap-2 shadow-lg hover:shadow-xl"
+                className="group relative overflow-hidden px-6 py-3 bg-black text-white rounded-full flex items-center gap-2 shadow-lg hover:shadow-xl"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Github size={20} />
-                GitHub
+                <span className="absolute inset-0 rounded-full bg-[linear-gradient(45deg,#56CCF2,#2F80ED)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <span className="relative z-10 flex items-center gap-2">
+                  <Github size={20} />
+                  GitHub
+                </span>
               </motion.a>
 
               <motion.a
                 href="#contact"
-                className="px-6 py-3 bg-white text-blue-600 border-2 border-blue-600 rounded-full flex items-center gap-2 shadow-lg hover:shadow-xl"
+                className="group relative overflow-hidden px-6 py-3 bg-black text-white rounded-full flex items-center gap-2 shadow-lg hover:shadow-xl"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Mail size={20} />
-                Get in Touch
+                <span className="absolute inset-0 rounded-full bg-[linear-gradient(45deg,#FF9966,#FF5E62)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <span className="relative z-10 flex items-center gap-2">
+                  <Mail size={20} />
+                  Get in Touch
+                </span>
               </motion.a>
             </motion.div>
           </motion.div>

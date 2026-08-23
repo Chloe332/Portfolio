@@ -272,7 +272,7 @@ export function Projects() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4 text-gray-900">
+          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-[#2E6F40] to-[#68BA7F] bg-clip-text text-transparent">
             Featured Projects
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
@@ -338,7 +338,7 @@ export function Projects() {
                   {project.tags.slice(0, 3).map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-medium"
+                      className="px-3 py-1 bg-[#2E6F40]/10 text-[#2E6F40] rounded-full text-xs font-medium"
                     >
                       {tag}
                     </span>
@@ -502,7 +502,7 @@ export function Projects() {
 
                   <div>
                     <h4 className="text-xl font-bold mb-3 text-gray-800 flex items-center gap-2">
-                      <span className="w-1 h-6 bg-gradient-to-b from-blue-600 to-purple-600 rounded-full" />
+                      <span className="w-1 h-6 bg-gradient-to-b from-[#2E6F40] to-[#68BA7F] rounded-full" />
                       Key Features
                     </h4>
                     <ul className="space-y-2">
@@ -512,7 +512,7 @@ export function Projects() {
                             key={i}
                             className="flex items-start gap-3 text-gray-600"
                           >
-                            <span className="text-blue-600 mt-1">✓</span>
+                            <span className="text-[#2E6F40] mt-1">✓</span>
                             <span>{feature}</span>
                           </li>
                         )
@@ -522,7 +522,7 @@ export function Projects() {
 
                   <div>
                     <h4 className="text-xl font-bold mb-3 text-gray-800 flex items-center gap-2">
-                      <span className="w-1 h-6 bg-gradient-to-b from-purple-600 to-pink-600 rounded-full" />
+                      <span className="w-1 h-6 bg-gradient-to-b from-[#2E6F40] to-[#68BA7F] rounded-full" />
                       Technical Implementation
                     </h4>
                     <ul className="space-y-2">
@@ -532,7 +532,7 @@ export function Projects() {
                             key={i}
                             className="flex items-start gap-3 text-gray-600"
                           >
-                            <span className="text-purple-600 mt-1">▸</span>
+                            <span className="text-[#2E6F40] mt-1">▸</span>
                             <span>{detail}</span>
                           </li>
                         )
@@ -612,7 +612,7 @@ export function Projects() {
 
                         {projects[selectedProject].demoVideo ? (
                           <motion.button
-                            className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-colors"
+                            className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#2E6F40] to-[#68BA7F] text-white rounded-lg hover:from-[#1f5934] hover:to-[#57a06c] transition-colors"
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             onClick={() => setVideoModalProject(selectedProject)}
@@ -625,7 +625,7 @@ export function Projects() {
                             href={projects[selectedProject].demo}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-colors"
+                            className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#2E6F40] to-[#68BA7F] text-white rounded-lg hover:from-[#1f5934] hover:to-[#57a06c] transition-colors"
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                           >
@@ -658,7 +658,7 @@ export function Projects() {
                 exit={{ scale: 0.92, y: 20 }}
                 onClick={(e) => e.stopPropagation()}
               >
-                <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-4 flex justify-between items-center">
+                <div className="bg-black p-4 flex justify-between items-center">
                   <h3 className="text-xl font-bold text-white">
                     {projects[videoModalProject].title} Demo
                   </h3>

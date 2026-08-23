@@ -70,7 +70,7 @@ export function Navigation() {
           <motion.a
             href="#home"
             onClick={(e) => scrollToSection(e, '#home')}
-            className="text-lg sm:text-xl font-bold truncate max-w-[calc(100%-56px)] bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+            className="text-lg sm:text-xl font-bold truncate max-w-[calc(100%-56px)] bg-gradient-to-r from-[#2E6F40] to-[#68BA7F] bg-clip-text text-transparent"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -83,7 +83,7 @@ export function Navigation() {
                 key={item.name}
                 href={item.href}
                 onClick={(e) => scrollToSection(e, item.href)}
-                className="text-gray-700 hover:text-blue-600 transition-colors"
+                className="text-gray-700 hover:text-black hover:font-bold transition-all"
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -118,7 +118,7 @@ export function Navigation() {
                   key={item.name}
                   href={item.href}
                   onClick={(e) => scrollToSection(e, item.href)}
-                  className="block w-full text-left text-gray-700 hover:text-blue-600 transition-colors py-2"
+                  className="block w-full text-left text-gray-700 hover:text-black hover:font-bold transition-all py-2"
                 >
                   {item.name}
                 </a>

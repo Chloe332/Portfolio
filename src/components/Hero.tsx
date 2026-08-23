@@ -6,7 +6,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50"
+      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50"
     >
       {/* Full-screen Spline layer */}
       {/* <motion.div
@@ -31,6 +31,7 @@ export function Hero() {
           <SplineScene
             scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
             className="w-full h-full"
+            waveObjectName="arm"
           />
         </div>
       </motion.div>
@@ -60,7 +61,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#253D2C] via-[#2E6F40] to-[#68BA7F] bg-clip-text text-transparent">
                 Chloe Hallaert
               </span>
               <br />
@@ -76,7 +77,7 @@ export function Hero() {
             </motion.p>
 
             <motion.div
-              className="w-32 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
+              className="w-32 h-1 bg-gradient-to-r from-[#2E6F40] to-[#68BA7F] rounded-full"
               initial={{ width: 0 }}
               animate={{ width: 128 }}
               transition={{ duration: 0.8, delay: 0.8 }}

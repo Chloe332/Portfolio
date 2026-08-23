@@ -1,13 +1,18 @@
+import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Mail, Linkedin, Github, MapPin } from 'lucide-react';
+import { EmailModal } from './ui/email-modal';
 
 export function Contact() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const contactInfo = [
     {
       icon: Mail,
       label: 'Email',
       value: 'cxhallae@uwaterloo.ca',
-      href: 'mailto:cxhallae@uwaterloo.ca',
+      href: null,
+      onClick: () => setIsModalOpen(true),
     },
     {
       icon: Linkedin,
@@ -24,13 +29,15 @@ export function Contact() {
     {
       icon: MapPin,
       label: 'Location',
-      value: 'Washington DC, USA \& Toronto, CA',
+      value: 'Washington DC, USA, \& Toronto, CA',
       href: null,
     },
   ];
 
   return (
     <section id="contact" className="py-20">
+      <EmailModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -39,13 +46,13 @@ export function Contact() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-[#2E6F40] to-[#68BA7F] bg-clip-text text-transparent">
             Let’s Connect
           </h2>
 
           <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed">
             I’m currently looking for internship opportunities and collaborations
-            in AI, software, and quantitative projects. Feel free to reach out. 
+            in AI, software, and quantitative projects. Feel free to reach out.
             I’d love to connect!
           </p>
         </motion.div>
@@ -58,16 +65,16 @@ export function Contact() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
         >
-          <a
-            href="mailto:cxhallae@uwaterloo.ca"
-            className="px-6 py-3 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="px-6 py-3 rounded-full bg-black text-white font-medium shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
           >
             Email Me
-          </a>
+          </button>
 
           <a
             href="https://www.linkedin.com/in/chloehallaert/"
-            className="px-6 py-3 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
+            className="px-6 py-3 rounded-full bg-black text-white font-medium shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
             // target="_blank"
             // rel="noopener noreferrer"
             // className="px-6 py-3 rounded-full border border-gray-300 text-gray-800 font-medium hover:border-blue-500 hover:text-blue-600 hover:-translate-y-0.5 transition-all"
@@ -91,7 +98,7 @@ export function Contact() {
                 className="h-full rounded-2xl border border-gray-200 bg-white/80 backdrop-blur-sm p-6 shadow-sm hover:shadow-lg transition-all"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white shrink-0">
+                  <div className="w-12 h-12 bg-gradient-to-br from-[#2E6F40] to-[#68BA7F] rounded-xl flex items-center justify-center text-white shrink-0">
                     <Icon size={20} />
                   </div>
 
@@ -105,19 +112,33 @@ export function Contact() {
               </motion.div>
             );
 
-            return info.href ? (
-              <a
-                key={info.label}
-                href={info.href}
-                target={info.href.startsWith('http') ? '_blank' : undefined}
-                rel={info.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                className="block"
-              >
-                {content}
-              </a>
-            ) : (
-              <div key={info.label}>{content}</div>
-            );
+            if (info.href) {
+              return (
+                <a
+                  key={info.label}
+                  href={info.href}
+                  target={info.href.startsWith('http') ? '_blank' : undefined}
+                  rel={info.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  className="block"
+                >
+                  {content}
+                </a>
+              );
+            }
+
+            if (info.onClick) {
+              return (
+                <button
+                  key={info.label}
+                  onClick={info.onClick}
+                  className="block text-left w-full"
+                >
+                  {content}
+                </button>
+              );
+            }
+
+            return <div key={info.label}>{content}</div>;
           })}
         </div>
       </div>

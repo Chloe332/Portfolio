@@ -22,7 +22,7 @@ export function Highlight({ children, className = '' }: HighlightProps) {
         backgroundPosition: 'left center',
         display: 'inline',
       }}
-      className={`relative inline rounded-lg bg-gradient-to-r from-indigo-200 to-purple-200 px-1 py-0.5 text-gray-800 ${className}`}
+      className={`relative inline rounded-lg bg-gradient-to-r from-emerald-200 to-green-200 px-1 py-0.5 text-gray-800 ${className}`}
     >
       {children}
     </motion.span>

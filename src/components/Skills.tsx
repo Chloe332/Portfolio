@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { ContainerScroll } from './ui/container-scroll-animation';
 
 interface SkillRow {
   label: string;
@@ -14,9 +15,9 @@ const skillRows: SkillRow[] = [
     label: 'Languages',
     emoji: '💻',
     skills: ['Python', 'C', 'C++', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'SQL', 'Bash'],
-    accent: 'text-blue-600',
-    bg: 'bg-blue-50',
-    border: 'border-blue-200',
+    accent: 'text-[#2563EB]',
+    bg: 'bg-[#2563EB]/10',
+    border: 'border-[#2563EB]/30',
   },
   {
     label: 'AI & ML',
@@ -33,9 +34,9 @@ const skillRows: SkillRow[] = [
       'MLflow',
       'LLaMA'
     ],
-    accent: 'text-purple-600',
-    bg: 'bg-purple-50',
-    border: 'border-purple-200',
+    accent: 'text-[#0D9488]',
+    bg: 'bg-[#0D9488]/10',
+    border: 'border-[#0D9488]/30',
   },
   {
     label: 'Cloud & Dev Tools',
@@ -57,17 +58,17 @@ const skillRows: SkillRow[] = [
       'FluidSynth API',
       'FastAPI'
     ],
-    accent: 'text-pink-600',
-    bg: 'bg-pink-50',
-    border: 'border-pink-200',
+    accent: 'text-[#16A34A]',
+    bg: 'bg-[#16A34A]/10',
+    border: 'border-[#16A34A]/30',
   },
   {
     label: 'Robotics & Simulation',
     emoji: '🚁',
     skills: ['ROS', 'ROS2', 'Isaac Sim', 'Isaac Lab', 'URDF', 'Arduino'],
-    accent: 'text-emerald-600',
-    bg: 'bg-emerald-50',
-    border: 'border-emerald-200',
+    accent: 'text-[#D97706]',
+    bg: 'bg-[#D97706]/10',
+    border: 'border-[#D97706]/30',
   },
   {
     label: 'Backend & Data',
@@ -82,9 +83,9 @@ const skillRows: SkillRow[] = [
       'Selenium',
       'Beautiful Soup',
     ],
-    accent: 'text-indigo-600',
-    bg: 'bg-indigo-50',
-    border: 'border-indigo-200',
+    accent: 'text-[#DC2626]',
+    bg: 'bg-[#DC2626]/10',
+    border: 'border-[#DC2626]/30',
   },
   // {
   //   label: 'Spoken Languages',
@@ -99,31 +100,19 @@ const skillRows: SkillRow[] = [
 export function Skills() {
   return (
     <section id="skills" className="py-20">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-14"
-        >
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Skills & Technologies
-          </h2>
-          <p className="text-gray-500 max-w-xl mx-auto">
-            Technologies, tools, and languages I work with
-          </p>
-        </motion.div>
-
-        {/* Skills card */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="bg-white rounded-3xl shadow-xl overflow-hidden"
-        >
+      <ContainerScroll
+        titleComponent={
+          <div className="text-center mb-8">
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-[#2E6F40] to-[#68BA7F] bg-clip-text text-transparent">
+              Skills & Technologies
+            </h2>
+            <p className="text-gray-500 max-w-xl mx-auto">
+              Technologies, tools, and languages I work with
+            </p>
+          </div>
+        }
+      >
+        <div className="bg-white rounded-2xl overflow-hidden">
           {skillRows.map((row, rowIndex) => (
             <motion.div
               key={row.label}
@@ -179,8 +168,8 @@ export function Skills() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
-      </div>
+        </div>
+      </ContainerScroll>
     </section>
   );
 }

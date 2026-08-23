@@ -68,7 +68,7 @@ export function Contact() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-[#2E6F40] to-[#68BA7F] bg-clip-text text-transparent">
             Get In Touch
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
@@ -107,7 +107,7 @@ export function Contact() {
                     whileHover={{ x: 10 }}
                     className="flex items-center gap-4"
                   >
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full flex items-center justify-center text-white">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#2E6F40] to-[#68BA7F] rounded-full flex items-center justify-center text-white">
                       <Icon size={20} />
                     </div>
                     <div>
@@ -140,7 +140,7 @@ export function Contact() {
           >
             <form
               onSubmit={handleSubmit}
-              className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 shadow-lg"
+              className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-8 shadow-lg"
             >
               <div className="mb-6">
                 <label
@@ -203,7 +203,7 @@ export function Contact() {
                 type="submit"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-shadow"
+                className="w-full px-6 py-3 bg-gradient-to-r from-[#2E6F40] to-[#68BA7F] text-white rounded-lg flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-shadow"
               >
                 <Send size={20} />
                 Send Message

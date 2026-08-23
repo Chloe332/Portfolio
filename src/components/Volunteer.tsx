@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { motion } from 'motion/react';
-import { HeartHandshake, CalendarDays, MapPin, Clock } from 'lucide-react';
+import { HeartHandshake, X } from 'lucide-react';
+import { FeatureGrid, type FeatureItem } from './ui/feature-grid';
 
 export interface VolunteerItem {
   organization: string;
@@ -78,139 +80,118 @@ const defaultVolunteerItems: VolunteerItem[] = [
   },
 ];
 
-function VolunteerCard({ item }: { item: VolunteerItem }) {
-  return (
-    <div
-      className="
-        group shrink-0
-        w-[85vw] sm:w-[400px]
-        rounded-3xl border border-blue-100 bg-white/90 p-6
-        shadow-lg shadow-blue-100/40
-        transition-all duration-300
-        hover:shadow-xl hover:border-purple-200 hover:-translate-y-1
-        flex flex-col
-        mx-3
-      "
-    >
-      {/* Header */}
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex-1 min-w-0">
-          <p className="text-xs font-semibold text-blue-500 tracking-wide uppercase">
-            {item.organization}
-          </p>
-          <h3 className="mt-1 text-lg font-semibold text-gray-900 leading-snug">
-            {item.role}
-          </h3>
-        </div>
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-400 to-purple-600 text-white shadow-lg transition-transform duration-300 group-hover:scale-105">
-          <HeartHandshake className="h-5 w-5" />
-        </div>
-      </div>
-
-      {/* Meta */}
-      <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 text-sm text-gray-500">
-        <div className="flex items-center gap-1.5">
-          <CalendarDays className="h-3.5 w-3.5 text-blue-500 shrink-0" />
-          <span>{item.period}</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <Clock className="h-3.5 w-3.5 text-purple-500 shrink-0" />
-          <span className="font-medium text-purple-600">{item.duration}</span>
-        </div>
-        {item.location && (
-          <div className="flex items-center gap-1.5">
-            <MapPin className="h-3.5 w-3.5 text-pink-500 shrink-0" />
-            <span>{item.location}</span>
-          </div>
-        )}
-      </div>
-
-      {/* Description */}
-      <p className="mt-4 text-sm leading-relaxed text-gray-600">{item.description}</p>
-
-      {/* Highlights */}
-      {item.highlights?.length ? (
-        <ul className="mt-4 space-y-2 flex-1">
-          {item.highlights.map((highlight, hi) => (
-            <li key={hi} className="flex gap-2 text-sm text-gray-600">
-              <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 shrink-0" />
-              <span>{highlight}</span>
-            </li>
-          ))}
-        </ul>
-      ) : null}
-
-      {/* Skill tags */}
-      {item.skills?.length ? (
-        <div className="mt-5 flex flex-wrap gap-2">
-          {item.skills.map((skill) => (
-            <span
-              key={skill}
-              className="rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700"
-            >
-              {skill}
-            </span>
-          ))}
-        </div>
-      ) : null}
-    </div>
-  );
-}
-
 export default function VolunteeringSection({
   title = 'Volunteering',
   subtitle = "ways I’ve supported my community through education, mentorship, and outreach",
   items = defaultVolunteerItems,
 }: VolunteeringSectionProps) {
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const selected = selectedIndex !== null ? items[selectedIndex] : null;
+
+  const features: FeatureItem[] = items.map((item, index) => ({
+    id: `${item.organization}-${index}`,
+    icon: HeartHandshake,
+    title: item.role,
+    description: (
+      <>
+        <span className="font-bold text-gray-800">{item.organization}</span>
+        {' · '}
+        {item.period}.
+        <br />
+        {item.description}
+      </>
+    ),
+    onClick: () => setSelectedIndex(index),
+  }));
+
   return (
-    <section
-      id="volunteering"
-      className="py-20"
-    >
-      <style>{`
-        @keyframes volunteer-marquee {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
-        }
-      `}</style>
+    <>
+      <FeatureGrid
+        id="volunteering"
+        features={features}
+        sectionTitle={title}
+        sectionSubtitle={subtitle}
+      />
 
-      {/* Heading */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Detailed View Modal */}
+      {selected && (
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-14"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => setSelectedIndex(null)}
         >
-          <h2 className="mt-5 text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-            {title}
-          </h2>
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">{subtitle}</p>
-        </motion.div>
-      </div>
+          <motion.div
+            className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto relative"
+            initial={{ scale: 0.9, y: 20 }}
+            animate={{ scale: 1, y: 0 }}
+            exit={{ scale: 0.9, y: 20 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="sticky top-0 bg-white border-b border-gray-200 px-8 py-6 flex justify-between items-start rounded-t-2xl z-10">
+              <div className="pr-8">
+                <h3 className="text-2xl font-bold text-gray-800">{selected.role}</h3>
+                <p className="text-gray-600 mt-1">
+                  {selected.organization} • {selected.period}
+                  {selected.duration ? ` (${selected.duration})` : ''}
+                </p>
+                {selected.location && (
+                  <p className="text-sm text-gray-500 mt-1">📍 {selected.location}</p>
+                )}
+              </div>
+              <motion.button
+                className="text-gray-500 hover:text-gray-700 p-2 hover:bg-gray-100 rounded-lg"
+                onClick={() => setSelectedIndex(null)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <X size={24} />
+              </motion.button>
+            </div>
 
-      {/* Marquee strip */}
-      <div
-        className="w-full overflow-hidden"
-        style={{
-          maskImage:
-            'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',
-          WebkitMaskImage:
-            'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',
-        }}
-      >
-        <div
-          className="flex items-stretch py-4 w-max hover:[animation-play-state:paused]"
-          style={{
-            animation: 'volunteer-marquee 40s linear infinite',
-          }}
-        >
-          {[...items, ...items].map((item, index) => (
-            <VolunteerCard key={index} item={item} />
-          ))}
-        </div>
-      </div>
-    </section>
+            <div className="px-8 py-6 space-y-6">
+              <p className="text-gray-600 leading-relaxed">{selected.description}</p>
+
+              {selected.highlights && selected.highlights.length > 0 && (
+                <div>
+                  <h4 className="text-lg font-bold mb-3 text-gray-800 flex items-center gap-2">
+                    <span className="w-1 h-6 bg-gradient-to-b from-[#2E6F40] to-[#68BA7F] rounded-full" />
+                    Highlights
+                  </h4>
+                  <ul className="space-y-2">
+                    {selected.highlights.map((highlight, i) => (
+                      <li key={i} className="flex items-start gap-3 text-gray-600">
+                        <span className="text-[#2E6F40] mt-1">•</span>
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {selected.skills && selected.skills.length > 0 && (
+                <div>
+                  <h4 className="text-lg font-bold mb-3 text-gray-800 flex items-center gap-2">
+                    <span className="w-1 h-6 bg-gradient-to-b from-[#2E6F40] to-[#68BA7F] rounded-full" />
+                    Skills
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selected.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="rounded-full border border-[#2E6F40]/30 bg-[#2E6F40]/10 px-3 py-1 text-xs font-medium text-[#2E6F40]"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </>
   );
 }

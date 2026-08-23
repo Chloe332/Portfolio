@@ -10,7 +10,7 @@ export function Experience() {
       type: 'work',
       title: 'Machine Learning and Robotics Software Engineer',
       organization: 'Mara Inc',
-      period: 'Jan - May 2026',
+      period: 'Jan - December 2026',
       description:
         'Improved drone perception and data infrastructure by shipping tracking-model upgrades, building scalable simulation pipelines, and automating dataset creation for autonomy workflows.',
       icon: Briefcase,
@@ -118,7 +118,7 @@ export function Experience() {
     },
     {
       type: 'work',
-      title: 'AI & Robotics # Member',
+      title: 'AI & Robotics Project Member',
       organization: 'University of Maryland',
       period: 'July 2022',
       description:
@@ -175,14 +175,29 @@ export function Experience() {
     },
   ];
 
-  const getColorByType = (type: string) => {
+  const getColorClasses = (type: string) => {
     switch (type) {
       case 'work':
-        return 'purple';
+        return {
+          badge: 'bg-emerald-50 text-emerald-700',
+          text: 'text-emerald-700',
+          hover: 'text-emerald-700 hover:text-emerald-900',
+          gradient: 'from-emerald-500 to-emerald-700',
+        };
       case 'achievement':
-        return 'pink';
+        return {
+          badge: 'bg-green-50 text-green-700',
+          text: 'text-green-700',
+          hover: 'text-green-700 hover:text-green-900',
+          gradient: 'from-green-400 to-green-600',
+        };
       default:
-        return 'gray';
+        return {
+          badge: 'bg-gray-50 text-gray-700',
+          text: 'text-gray-700',
+          hover: 'text-gray-700 hover:text-gray-900',
+          gradient: 'from-gray-400 to-gray-600',
+        };
     }
   };
 
@@ -196,7 +211,7 @@ export function Experience() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-[#2E6F40] to-[#68BA7F] bg-clip-text text-transparent">
             Experience & Achievements
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
@@ -206,12 +221,12 @@ export function Experience() {
 
         <div className="relative">
           {/* Timeline line */}
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-400 via-pink-400 to-red-400" />
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#253D2C] via-[#2E6F40] to-[#68BA7F]" />
 
           <div className="space-y-12">
             {experiences.map((exp, index) => {
               const Icon = exp.icon;
-              const color = getColorByType(exp.type);
+              const colorClasses = getColorClasses(exp.type);
               const isEven = index % 2 === 0;
 
               return (
@@ -233,7 +248,7 @@ export function Experience() {
                       onClick={() => setSelectedExperience(index)}
                     >
                       <div
-                        className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-${color}-50 text-${color}-600 mb-3 text-sm font-medium`}
+                        className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${colorClasses.badge} mb-3 text-sm font-medium`}
                       >
                         <Icon size={16} />
                         {exp.period}
@@ -241,7 +256,7 @@ export function Experience() {
                       <h3 className="text-xl font-bold mb-2 text-gray-800">
                         {exp.title}
                       </h3>
-                      <p className={`text-${color}-600 font-medium mb-3`}>
+                      <p className={`${colorClasses.text} font-medium mb-3`}>
                         {exp.organization}
                       </p>
                       <p className="text-gray-600 mb-3">{exp.description}</p>
@@ -268,7 +283,7 @@ export function Experience() {
                         </div>
                       )}
 
-                      <button className={`text-sm text-${color}-600 hover:text-${color}-700 font-medium`}>
+                      <button className={`text-sm ${colorClasses.hover} font-medium`}>
                         Learn More →
                       </button>
                     </motion.div>
@@ -279,7 +294,7 @@ export function Experience() {
                     <motion.div
                       whileHover={{ scale: 1.2, rotate: 360 }}
                       transition={{ duration: 0.5 }}
-                      className={`w-12 h-12 bg-gradient-to-br from-${color}-400 to-${color}-600 rounded-full flex items-center justify-center text-white shadow-lg`}
+                      className={`w-12 h-12 bg-gradient-to-br ${colorClasses.gradient} rounded-full flex items-center justify-center text-white shadow-lg`}
                     >
                       <Icon size={24} />
                     </motion.div>
@@ -358,14 +373,14 @@ export function Experience() {
                 {experiences[selectedExperience].details.responsibilities && (
                   <div>
                     <h4 className="text-lg font-bold mb-3 text-gray-800 flex items-center gap-2">
-                      <span className="w-1 h-6 bg-gradient-to-b from-purple-600 to-pink-600 rounded-full"></span>
+                      <span className="w-1 h-6 bg-gradient-to-b from-[#2E6F40] to-[#68BA7F] rounded-full"></span>
                       Responsibilities
                     </h4>
                     <ul className="space-y-2">
                       {experiences[selectedExperience].details.responsibilities.map(
                         (responsibility, i) => (
                           <li key={i} className="flex items-start gap-3 text-gray-600">
-                            <span className="text-purple-600 mt-1">•</span>
+                            <span className="text-[#2E6F40] mt-1">•</span>
                             <span>{responsibility}</span>
                           </li>
                         )
@@ -377,14 +392,14 @@ export function Experience() {
                 {experiences[selectedExperience].details.achievements && (
                   <div>
                     <h4 className="text-lg font-bold mb-3 text-gray-800 flex items-center gap-2">
-                      <span className="w-1 h-6 bg-gradient-to-b from-pink-600 to-red-600 rounded-full"></span>
+                      <span className="w-1 h-6 bg-gradient-to-b from-[#2E6F40] to-[#68BA7F] rounded-full"></span>
                       Achievements
                     </h4>
                     <ul className="space-y-2">
                       {experiences[selectedExperience].details.achievements.map(
                         (achievement, i) => (
                           <li key={i} className="flex items-start gap-3 text-gray-600">
-                            <span className="text-pink-600 mt-1">•</span>
+                            <span className="text-[#2E6F40] mt-1">•</span>
                             <span>{achievement}</span>
                           </li>
                         )
@@ -396,14 +411,14 @@ export function Experience() {
                 {experiences[selectedExperience].details.projectDetails && (
                   <div>
                     <h4 className="text-lg font-bold mb-3 text-gray-800 flex items-center gap-2">
-                      <span className="w-1 h-6 bg-gradient-to-b from-blue-600 to-purple-600 rounded-full"></span>
+                      <span className="w-1 h-6 bg-gradient-to-b from-[#2E6F40] to-[#68BA7F] rounded-full"></span>
                       Project Details
                     </h4>
                     <ul className="space-y-2">
                       {experiences[selectedExperience].details.projectDetails.map(
                         (detail, i) => (
                           <li key={i} className="flex items-start gap-3 text-gray-600">
-                            <span className="text-blue-600 mt-1">•</span>
+                            <span className="text-[#2E6F40] mt-1">•</span>
                             <span>{detail}</span>
                           </li>
                         )
@@ -417,7 +432,7 @@ export function Experience() {
                 {experiences[selectedExperience].details.skills && (
                   <div>
                     <h4 className="text-lg font-bold mb-3 text-gray-800 flex items-center gap-2">
-                      <span className="w-1 h-6 bg-gradient-to-b from-blue-600 to-purple-600 rounded-full"></span>
+                      <span className="w-1 h-6 bg-gradient-to-b from-[#2E6F40] to-[#68BA7F] rounded-full"></span>
                       Skills
                     </h4>
                     <div className="flex flex-wrap gap-2">
@@ -425,7 +440,7 @@ export function Experience() {
                         (skill, i) => (
                           <span
                             key={i}
-                            className="px-3 py-1.5 bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 rounded-lg text-sm font-medium border border-blue-200"
+                            className="px-3 py-1.5 bg-gradient-to-r from-emerald-50 to-green-50 text-emerald-800 rounded-lg text-sm font-medium border border-emerald-200"
                           >
                             {skill}
                           </span>

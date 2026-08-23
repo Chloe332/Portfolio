@@ -55,7 +55,7 @@ export function Timeline({
       className="w-full bg-white font-sans dark:bg-neutral-950"
     >
       <div className="mx-auto max-w-7xl px-4 py-20 md:px-8 lg:px-10">
-        <h2 className="max-w-4xl bg-gradient-to-r from-blue-600 via-violet-600 to-pink-600 bg-clip-text text-3xl font-bold text-transparent md:text-5xl">
+        <h2 className="max-w-4xl bg-gradient-to-r from-[#253D2C] via-[#2E6F40] to-[#68BA7F] bg-clip-text text-3xl font-bold text-transparent md:text-5xl">
           {heading}
         </h2>
         <p className="mt-4 max-w-2xl text-sm text-neutral-600 dark:text-neutral-300 md:text-base">
@@ -71,7 +71,7 @@ export function Timeline({
           >
             <div className="sticky top-24 z-30 flex h-fit w-16 shrink-0 items-start justify-center md:top-32 md:w-full md:max-w-xs lg:max-w-sm">
               <div className="absolute left-6 flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white shadow-sm dark:border-neutral-800 dark:bg-black md:left-3">
-                <div className="h-4 w-4 rounded-full bg-gradient-to-br from-blue-500 via-violet-500 to-pink-500" />
+                <div className="h-4 w-4 rounded-full bg-gradient-to-br from-[#253D2C] via-[#2E6F40] to-[#68BA7F]" />
               </div>
 
               <h3 className="hidden pl-20 text-left text-3xl font-bold text-neutral-400 md:block lg:text-5xl">
@@ -97,7 +97,7 @@ export function Timeline({
               height: heightTransform,
               opacity: opacityTransform,
             }}
-            className="absolute inset-x-0 top-0 w-[2px] rounded-full bg-gradient-to-t from-blue-500 via-violet-500 to-pink-500"
+            className="absolute inset-x-0 top-0 w-[2px] rounded-full bg-gradient-to-t from-[#253D2C] via-[#2E6F40] to-[#68BA7F]"
           />
         </div>
       </div>
