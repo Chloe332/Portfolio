@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Briefcase, Award, X } from 'lucide-react';
+import { Briefcase, Award, X, MapPin } from 'lucide-react';
 import { useState } from 'react';
 
 export function Experience() {
@@ -152,7 +152,7 @@ export function Experience() {
         'Led an 8-person engineering team in designing a Mars rover for NASA’s Human Exploration Rover Challenge, coordinating technical work and presenting the final design to NASA engineers.',
       icon: Briefcase,
       details: {
-        location: 'Marshall Space Flight Center, Huntsville, Alabama',
+        location: 'Washington, DC, USA',
         responsibilities: [
           'Led a team of 8 students through rover planning, technical coordination, and design execution for NASA’s Human Exploration Rover Challenge.',
           'Helped design a rover capable of handling simulated Martian terrain while balancing performance, durability, and project constraints.',
@@ -256,9 +256,19 @@ export function Experience() {
                       <h3 className="text-xl font-bold mb-2 text-gray-800">
                         {exp.title}
                       </h3>
-                      <p className={`${colorClasses.text} font-medium mb-3`}>
+                      <p className={`${colorClasses.text} font-medium mb-1`}>
                         {exp.organization}
                       </p>
+                      {exp.details.location && (
+                        <p
+                          className={`text-sm text-gray-500 mb-3 flex items-center gap-1.5 ${
+                            isEven ? 'md:justify-end' : ''
+                          }`}
+                        >
+                          <MapPin size={14} className="shrink-0" />
+                          {exp.details.location}
+                        </p>
+                      )}
                       <p className="text-gray-600 mb-3">{exp.description}</p>
 
                       {exp.details.technologies && (
