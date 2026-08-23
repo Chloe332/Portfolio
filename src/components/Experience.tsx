@@ -10,7 +10,7 @@ export function Experience() {
       type: 'work',
       title: 'Machine Learning and Robotics Software Engineer',
       organization: 'Mara Inc',
-      period: 'Jan - December 2026',
+      period: 'Jan - May 2026 \& Sept - Dec 2026',
       description:
         'Improved drone perception and data infrastructure by shipping tracking-model upgrades, building scalable simulation pipelines, and automating dataset creation for autonomy workflows.',
       icon: Briefcase,
