@@ -25,6 +25,8 @@ interface SplineSceneProps {
    */
   waveDelayMs?: number
   waveDurationMs?: number
+  /** Camera zoom (1 = scene default). Below 1 zooms out so the whole robot fits. */
+  zoom?: number
 }
 
 export function SplineScene({
@@ -33,6 +35,7 @@ export function SplineScene({
   waveObjectName,
   waveDelayMs = 2300,
   waveDurationMs = 1000,
+  zoom,
 }: SplineSceneProps) {
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -69,6 +72,11 @@ export function SplineScene({
   }, [])
 
   const handleLoad = (app: Application) => {
+    if (zoom !== undefined) {
+      app.setZoom(zoom)
+      // The scene runs its own intro camera move; re-apply once it's done.
+      window.setTimeout(() => app.setZoom(zoom), waveDelayMs)
+    }
     if (!waveObjectName) return
 
     const arm = app.findObjectByName(waveObjectName)
@@ -107,10 +115,8 @@ export function SplineScene({
     <div ref={containerRef} className={className}>
       <Suspense
         fallback={
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50">
-            <div className="loader">
-              <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-            </div>
+          <div className="w-full h-full flex items-end justify-center pb-10">
+            <p className="font-mono text-xs uppercase tracking-[0.08em] text-ink-soft">loading model…</p>
           </div>
         }
       >

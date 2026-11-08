@@ -48,7 +48,7 @@ export function About() {
                 <motion.a
                   href={resumePdfSrc}
                   download="chloe_resume.pdf"
-                  className="px-4 py-2 bg-white text-[#2E6F40] rounded-lg flex items-center gap-2 font-medium"
+                  className="px-4 py-2 bg-white text-signal rounded-lg flex items-center gap-2 font-medium"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -93,8 +93,6 @@ export function About() {
                 alt="Chloe Hallaert - Profile Picture"
                 className="rounded-2xl shadow-2xl w-full h-auto"
               />
-              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-[#68BA7F] to-[#2E6F40] rounded-full blur-3xl opacity-30 -z-10" />
-              <div className="absolute -top-6 -left-6 w-24 h-24 bg-gradient-to-br from-[#68BA7F] to-[#2E6F40] rounded-full blur-2xl opacity-30 -z-10" />
             </div>
           </motion.div>
 
@@ -111,7 +109,7 @@ export function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                className="text-[#2E6F40] text-lg mb-2 font-medium"
+                className="text-signal text-lg mb-2 font-medium"
               >
                 Hello! I&apos;m
               </motion.p>
@@ -121,7 +119,7 @@ export function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
-                className="text-4xl font-bold mb-3 bg-gradient-to-r from-[#253D2C] via-[#2E6F40] to-[#68BA7F] bg-clip-text text-transparent"
+                className="text-4xl sm:text-5xl mb-3 font-serif font-normal text-ink tracking-tight"
               >
                 Chloe Hallaert
               </motion.h3>
@@ -166,7 +164,7 @@ export function About() {
               I&apos;m a <Highlight>published author</Highlight> of two educational
               children&apos;s books, and in my free time I enjoy teaching as a math
               and English tutor, dancing, drawing, and learning new languages
-              (French, English, Chinese, American Sign Language).
+              (French, Chinese, Italian, American Sign Language).
             </motion.p>
 
             <motion.div
@@ -178,11 +176,8 @@ export function About() {
             >
               <motion.button
                 onClick={() => setShowResumeModal(true)}
-                className="group relative overflow-hidden px-6 py-3 bg-black text-white rounded-full flex items-center gap-2 shadow-lg hover:shadow-xl"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
+                className="px-5 py-2.5 border border-ink text-ink rounded-[2px] font-mono text-sm flex items-center gap-2 hover:bg-ink hover:text-paper transition-colors"
               >
-                <span className="absolute inset-0 rounded-full bg-[linear-gradient(45deg,#a955ff,#ea51ff)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                 <span className="relative z-10 flex items-center gap-2">
                   <span className="text-lg leading-none">→</span>
                   View Resume
@@ -193,11 +188,8 @@ export function About() {
                 href="https://github.com/Chloe332"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative overflow-hidden px-6 py-3 bg-black text-white rounded-full flex items-center gap-2 shadow-lg hover:shadow-xl"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
+                className="px-5 py-2.5 border border-ink text-ink rounded-[2px] font-mono text-sm flex items-center gap-2 hover:bg-ink hover:text-paper transition-colors"
               >
-                <span className="absolute inset-0 rounded-full bg-[linear-gradient(45deg,#56CCF2,#2F80ED)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                 <span className="relative z-10 flex items-center gap-2">
                   <Github size={20} />
                   GitHub
@@ -206,11 +198,8 @@ export function About() {
 
               <motion.button
                 onClick={scrollToContact}
-                className="group relative overflow-hidden px-6 py-3 bg-black text-white rounded-full flex items-center gap-2 shadow-lg hover:shadow-xl"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
+                className="px-5 py-2.5 border border-ink text-ink rounded-[2px] font-mono text-sm flex items-center gap-2 hover:bg-ink hover:text-paper transition-colors"
               >
-                <span className="absolute inset-0 rounded-full bg-[linear-gradient(45deg,#FF9966,#FF5E62)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                 <span className="relative z-10 flex items-center gap-2">
                   <Mail size={20} />
                   Get in Touch

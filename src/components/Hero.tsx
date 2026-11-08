@@ -1,100 +1,73 @@
-import { motion } from 'motion/react';
 import { SplineScene } from './ui/spline-scene';
-import { GradientSocialMenu } from './ui/gradient-social-menu';
+
+// Home: name, one plain line, current status and links, with the Spline
+// robot on the right (lazy-loaded; it follows the cursor and waves once).
+
+const RESUME_CACHE_BUST = '2026-08-23'; // keep in sync with About.tsx
+const resumePdfSrc = `${import.meta.env.BASE_URL}images/resume/chloe_resume.pdf?v=${RESUME_CACHE_BUST}`;
+
+const links = [
+  { label: 'Email', href: 'mailto:cxhallae@uwaterloo.ca' },
+  { label: 'GitHub', href: 'https://github.com/Chloe332' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/chloehallaert/' },
+  { label: 'Resume (PDF)', href: resumePdfSrc },
+];
+
 
 export function Hero() {
   return (
-    <section
-      id="home"
-      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50"
-    >
-      {/* Full-screen Spline layer */}
-      {/* <motion.div
-        className="absolute inset-0 z-0"
-        initial={{ opacity: 0, x: 50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-      >
+    <section id="home" className="relative overflow-hidden border-b border-rule flex flex-col md:block md:min-h-[100svh]">
+      {/* Robot: below the text on phones, right half on larger screens */}
+      <figure className="relative h-[60svh] md:absolute md:top-14 md:bottom-0 md:left-[46%] md:right-0 md:h-auto order-last">
         <SplineScene
           scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
           className="w-full h-full"
+          waveObjectName="arm"
+          zoom={0.62}
         />
-      </motion.div> */}
+      </figure>
 
-      <motion.div
-        className="absolute inset-0 z-0 overflow-hidden"
-        initial={{ opacity: 0, x: 50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-      >
-        <div className="absolute inset-y-0 left-0 w-full translate-y-80 sm:translate-y-32 md:translate-y-0 md:w-[115%] lg:w-[115%] md:translate-x-[8%] lg:translate-x-[12%]">
-          <SplineScene
-            scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-            className="w-full h-full"
-            waveObjectName="arm"
-          />
-        </div>
-      </motion.div>
+      <div className="relative z-10 pointer-events-none max-w-6xl mx-auto px-5 sm:px-8 lg:pl-16 pt-32 pb-10 sm:pt-40 md:pb-24 md:min-h-[100svh] md:flex md:flex-col md:justify-center">
+        <p className="font-mono text-[0.72rem] sm:text-xs uppercase tracking-[0.08em] text-ink-soft flex flex-wrap items-center gap-x-2 gap-y-1">
+          <span className="inline-block h-2 w-2 rounded-full bg-signal" aria-hidden="true" />
+          <span>Robotics Software Engineer @ Mara</span>
+          <span aria-hidden="true">·</span>
+          <span>open to Summer 2027 internships</span>
+        </p>
 
-      {/* Foreground content layer */}
-      <div className="relative z-10 min-h-screen pt-16 sm:pt-20 pointer-events-none">
-        <div className="w-full h-[calc(100vh-4rem)] sm:h-[calc(100vh-5rem)] flex flex-col md:flex-row items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Left Side - Text */}
-          <motion.div
-            className="flex-1 flex flex-col justify-center items-start space-y-6 md:pr-12 md:translate-x-6 lg:translate-x-10"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <motion.p
-              className="text-2xl sm:text-3xl md:text-4xl text-gray-600 font-medium"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-            >
-              hello world! I&apos;m
-            </motion.p>
-
-            <motion.h1
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <span className="bg-gradient-to-r from-[#253D2C] via-[#2E6F40] to-[#68BA7F] bg-clip-text text-transparent">
-                Chloe Hallaert
-              </span>
+        <div className="mt-8 md:max-w-[44%]">
+          <div>
+            <h1 className="font-serif font-normal text-ink tracking-[-0.02em] leading-[0.9] text-[clamp(3.5rem,11vw,8rem)]">
+              Chloe
               <br />
-            </motion.h1>
+              Hallaert
+            </h1>
 
-            <motion.p
-              className="text-2xl sm:text-3xl md:text-4xl text-gray-600 font-medium"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-            >
-              software engineer
-            </motion.p>
+            <p className="mt-8 max-w-xl text-xl sm:text-2xl leading-snug text-ink">
+              I build robotics, embedded and ML systems. Software engineering student at the
+              University of Waterloo, now writing firmware and edge-ML code at Mara.
+            </p>
 
-            <motion.div
-              className="w-32 h-1 bg-gradient-to-r from-[#2E6F40] to-[#68BA7F] rounded-full"
-              initial={{ width: 0 }}
-              animate={{ width: 128 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-            />
+            <ul className="pointer-events-auto mt-10 flex flex-wrap gap-x-6 gap-y-3 font-mono text-sm">
+              {links.map((link) => {
+                const external = link.href.startsWith('http') || link.href.includes('.pdf');
+                return (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      target={external ? '_blank' : undefined}
+                      rel={external ? 'noopener noreferrer' : undefined}
+                      className="text-ink underline decoration-rule decoration-1 underline-offset-4 hover:text-signal hover:decoration-signal transition-colors"
+                    >
+                      {link.label}
+                      {external && <span aria-hidden="true"> ↗</span>}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1 }}
-              className="pt-1 pointer-events-auto"
-            >
-              <GradientSocialMenu />
-            </motion.div>
-          </motion.div>
-
-          {/* Right side spacer so the robot still appears visually on the right */}
-          <div className="flex-1 w-full h-[50vh] md:h-full" />
         </div>
       </div>
     </section>

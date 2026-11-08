@@ -1,132 +1,101 @@
 import { useState, useEffect, type MouseEvent } from 'react';
 import { Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+
+const navItems = [
+  { name: 'About', href: '#about' },
+  { name: 'Skills', href: '#skills' },
+  { name: 'Work', href: '#experience' },
+  { name: 'Projects', href: '#projects' },
+  { name: 'Education', href: '#education' },
+  { name: 'Volunteer', href: '#volunteering' },
+  { name: 'Contact', href: '#contact' },
+];
+
+const NAV_HEIGHT = 56; // matches h-14
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 24);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Education', href: '#education' },
-    { name: 'Volunteer', href: '#volunteering' },
-    { name: 'Contact', href: '#contact' },
-  ];
-
   const scrollToSection = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
+    setIsMobileMenuOpen(false);
 
-    const targetId = href.replace('#', '');
-    const delay = isMobileMenuOpen ? 250 : 0;
+    const element = document.getElementById(href.replace('#', ''));
+    if (!element) return;
 
-    if (isMobileMenuOpen) {
-      setIsMobileMenuOpen(false);
-    }
-
-    window.setTimeout(() => {
-      const element = document.getElementById(targetId);
-
-      if (!element) {
-        console.log(`Missing section id: ${targetId}`);
-        return;
-      }
-
-      const navHeight = 64; // matches h-16
-      const elementTop = element.getBoundingClientRect().top + window.scrollY;
-      const offsetTop = Math.max(elementTop - navHeight, 0);
-
-      window.scrollTo({
-        top: offsetTop,
-        behavior: 'smooth',
-      });
-    }, delay);
+    const top = element.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: Math.max(top, 0), behavior: reduce ? 'auto' : 'smooth' });
   };
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-white/80 backdrop-blur-md shadow-md'
-          : 'bg-white/30 backdrop-blur-sm'
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-200 ${
+        isScrolled || isMobileMenuOpen
+          ? 'bg-paper/95 border-b border-rule'
+          : 'bg-transparent border-b border-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <motion.a
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 lg:pl-16">
+        <div className="flex justify-between items-center h-14">
+          <a
             href="#home"
             onClick={(e) => scrollToSection(e, '#home')}
-            className="text-lg sm:text-xl font-bold truncate max-w-[calc(100%-56px)] bg-gradient-to-r from-[#2E6F40] to-[#68BA7F] bg-clip-text text-transparent"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="font-serif text-xl text-ink tracking-tight"
           >
             Chloe Hallaert
-          </motion.a>
+          </a>
 
-          <div className="hidden md:flex space-x-8">
+          <ul className="hidden lg:flex gap-6 font-mono text-[0.72rem] uppercase tracking-[0.08em]">
             {navItems.map((item) => (
-              <motion.a
-                key={item.name}
-                href={item.href}
-                onClick={(e) => scrollToSection(e, item.href)}
-                className="text-gray-700 hover:text-black hover:font-bold transition-all"
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {item.name}
-              </motion.a>
+              <li key={item.name}>
+                <a
+                  href={item.href}
+                  onClick={(e) => scrollToSection(e, item.href)}
+                  className="text-ink-soft hover:text-signal transition-colors"
+                >
+                  {item.name}
+                </a>
+              </li>
             ))}
-          </div>
+          </ul>
 
           <button
             type="button"
-            className="md:hidden p-2 shrink-0"
+            className="lg:hidden p-2 -mr-2 text-ink"
             onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+            aria-expanded={isMobileMenuOpen}
             aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
 
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden bg-white border-t overflow-hidden"
-          >
-            <div className="px-4 py-4 space-y-3">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  onClick={(e) => scrollToSection(e, item.href)}
-                  className="block w-full text-left text-gray-700 hover:text-black hover:font-bold transition-all py-2"
-                >
-                  {item.name}
-                </a>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+      {isMobileMenuOpen && (
+        <ul className="lg:hidden border-t border-rule bg-paper px-5 py-3 font-mono text-sm uppercase tracking-[0.08em]">
+          {navItems.map((item, i) => (
+            <li key={item.name}>
+              <a
+                href={item.href}
+                onClick={(e) => scrollToSection(e, item.href)}
+                className="flex gap-4 py-2.5 text-ink-soft hover:text-signal"
+              >
+                <span className="text-signal">{String(i + 1).padStart(2, '0')}</span>
+                {item.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </nav>
   );
 }

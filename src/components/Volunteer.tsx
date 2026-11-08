@@ -156,13 +156,13 @@ export default function VolunteeringSection({
               {selected.highlights && selected.highlights.length > 0 && (
                 <div>
                   <h4 className="text-lg font-bold mb-3 text-gray-800 flex items-center gap-2">
-                    <span className="w-1 h-6 bg-gradient-to-b from-[#2E6F40] to-[#68BA7F] rounded-full" />
+                    <span className="w-4 h-px bg-signal" />
                     Highlights
                   </h4>
                   <ul className="space-y-2">
                     {selected.highlights.map((highlight, i) => (
                       <li key={i} className="flex items-start gap-3 text-gray-600">
-                        <span className="text-[#2E6F40] mt-1">•</span>
+                        <span className="text-signal mt-1">•</span>
                         <span>{highlight}</span>
                       </li>
                     ))}
@@ -173,14 +173,14 @@ export default function VolunteeringSection({
               {selected.skills && selected.skills.length > 0 && (
                 <div>
                   <h4 className="text-lg font-bold mb-3 text-gray-800 flex items-center gap-2">
-                    <span className="w-1 h-6 bg-gradient-to-b from-[#2E6F40] to-[#68BA7F] rounded-full" />
+                    <span className="w-4 h-px bg-signal" />
                     Skills
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {selected.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="rounded-full border border-[#2E6F40]/30 bg-[#2E6F40]/10 px-3 py-1 text-xs font-medium text-[#2E6F40]"
+                        className="rounded-full border border-signal/30 bg-signal/10 px-3 py-1 text-xs font-medium text-signal"
                       >
                         {skill}
                       </span>
