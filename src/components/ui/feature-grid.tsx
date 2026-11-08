@@ -86,12 +86,12 @@ export function FeatureGrid({
                   : undefined
               }
               className={cn(
-                'flex flex-col h-full p-4 transition-all duration-300 hover:shadow-xl hover:scale-[1.01] hover:border-[#2E6F40]/50 focus-within:ring-2 focus-within:ring-[#2E6F40] focus-within:ring-offset-2',
+                'flex flex-col h-full p-4 transition-all duration-300 hover:shadow-xl hover:scale-[1.01] hover:border-signal/50 focus-within:ring-2 focus-within:ring-signal focus-within:ring-offset-2',
                 feature.onClick && 'cursor-pointer'
               )}
             >
               <CardHeader className="p-0 pb-3">
-                <div className="mb-3 p-2 w-fit rounded-lg bg-[#2E6F40]/10 text-[#2E6F40] border border-[#2E6F40]/20 transition-colors duration-200">
+                <div className="mb-3 p-2 w-fit rounded-lg bg-signal/10 text-signal border border-signal/20 transition-colors duration-200">
                   <feature.icon className="h-6 w-6" aria-hidden="true" />
                 </div>
                 <CardTitle className="text-xl font-semibold text-gray-800">
@@ -103,7 +103,7 @@ export function FeatureGrid({
                   {feature.description}
                 </CardDescription>
                 {feature.onClick && (
-                  <span className="mt-3 text-sm font-medium text-[#2E6F40]">
+                  <span className="mt-3 text-sm font-medium text-signal">
                     View details →
                   </span>
                 )}

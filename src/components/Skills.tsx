@@ -131,13 +131,13 @@ export function Skills() {
               <dt className="font-mono text-xs uppercase tracking-[0.08em] text-ink-soft md:pt-1.5">
                 {group.label}
               </dt>
-              <dd className="max-w-[46rem] text-lg leading-relaxed text-ink">
+              <dd className="max-w-[46rem] text-lg leading-relaxed text-ink-soft">
                 {group.skills.map((raw, i) => {
                   const key = raw.startsWith('*');
                   const skill = key ? raw.slice(1) : raw;
                   return (
                   <span key={skill}>
-                    {key ? <strong className="font-semibold">{skill}</strong> : skill}
+                    {key ? <strong className="font-semibold text-ink">{skill}</strong> : skill}
                     {i < group.skills.length - 1 && (
                       <span className="text-signal px-2" aria-hidden="true">·</span>
                     )}
