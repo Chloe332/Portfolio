@@ -7,7 +7,7 @@ export function Education() {
 
   const educationItems = [
     {
-      title: 'Bachelor of Engineering in Honors Software Engineering',
+      title: 'Bachelor of Software Engineering (Honours)',
       organization: 'University of Waterloo',
       period: '2024 - Present',
       description:
@@ -18,7 +18,7 @@ export function Education() {
           'Accepted into Waterloo\'s highly competitive Software Engineering program',
           'Recipient of the International Student Scholarship (1 of 20 recipients)',
           'Recipient of the President\'s Scholarship for academic excellence',
-          'Co-op program with 6 integrated work terms',
+          // TODO(Chloe): confirm before re-adding: 'Co-op program with 6 integrated work terms'
         ],
         coursework: [
           // 'CS 137: Programming Principles (C)',
@@ -28,7 +28,7 @@ export function Education() {
           'CS 348: Database Management',
           'SE 212: Logic and Computation (Formal Logic)',
           'MATH 115: Linear Algebra',
-          'MATH 119: Calculus III (Advanced Multivariable Approximation and Analysis)',
+          'MATH 117 / MATH 119: Calculus 1 & 2',
           'MATH 239: Combinatorics',
           'STAT206: Statistics',
           'ECE 222: Digital Computers (Assembly)'
@@ -57,8 +57,9 @@ export function Education() {
     },
     {
       title: 'Mathematical Modeling of Finance: An Introduction to Quantitative Analysis',
-      organization: 'Brown University',
-      period: '2021',
+      organization: 'Brown University Pre-College',
+      // No year or date for this course, by request.
+      period: 'Pre-College',
       description:
         'Completed Brown University coursework in mathematical modeling for finance, strengthening quantitative analysis and problem-solving skills.',
       details: {
@@ -81,7 +82,7 @@ export function Education() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-[#2E6F40] to-[#68BA7F] bg-clip-text text-transparent">
+          <h2 className="text-4xl sm:text-5xl mb-4 font-serif font-normal text-ink tracking-tight">
             Education
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
@@ -91,7 +92,7 @@ export function Education() {
 
         <div className="relative max-w-4xl mx-auto">
           {/* Timeline line */}
-          <div className="hidden md:block absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#68BA7F] to-[#2E6F40]" />
+          <div className="hidden md:block absolute left-8 top-0 bottom-0 w-0.5 bg-rule" />
 
           <div className="space-y-8">
             {educationItems.map((edu, index) => (
@@ -108,7 +109,7 @@ export function Education() {
                   <motion.div
                     whileHover={{ scale: 1.2, rotate: 360 }}
                     transition={{ duration: 0.5 }}
-                    className="w-8 h-8 bg-gradient-to-br from-[#2E6F40] to-[#68BA7F] rounded-full flex items-center justify-center text-white shadow-lg"
+                    className="w-8 h-8 bg-ink rounded-full flex items-center justify-center text-white shadow-lg"
                   >
                     <GraduationCap size={16} />
                   </motion.div>
@@ -121,18 +122,18 @@ export function Education() {
                     className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all cursor-pointer"
                     onClick={() => setSelectedEducation(index)}
                   >
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#12735f]/10 text-[#12735f] mb-3 text-sm font-medium">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-signal/10 text-signal mb-3 text-sm font-medium">
                       <GraduationCap size={16} />
                       {edu.period}
                     </div>
                     <h3 className="text-xl font-bold mb-2 text-gray-800">
                       {edu.title}
                     </h3>
-                    <p className="text-[#088a70] font-medium mb-3">
+                    <p className="text-ink-soft font-medium mb-3">
                       {edu.organization}
                     </p>
                     <p className="text-gray-600 mb-3">{edu.description}</p>
-                    <button className="text-sm text-[#1B4332] hover:text-[#122b21] font-medium">
+                    <button className="text-sm text-ink-soft hover:text-signal font-medium">
                       View Details →
                     </button>
                   </motion.div>
@@ -190,14 +191,14 @@ export function Education() {
                 {educationItems[selectedEducation].details.highlights && (
                   <div>
                     <h4 className="text-lg font-bold mb-3 text-gray-800 flex items-center gap-2">
-                      <span className="w-1 h-6 bg-gradient-to-b from-[#2E6F40] to-[#68BA7F] rounded-full"></span>
+                      <span className="w-4 h-px bg-signal"></span>
                       Highlights
                     </h4>
                     <ul className="space-y-2">
                       {educationItems[selectedEducation].details.highlights.map(
                         (highlight, i) => (
                           <li key={i} className="flex items-start gap-3 text-gray-600">
-                            <span className="text-[#2E6F40] mt-1">•</span>
+                            <span className="text-signal mt-1">•</span>
                             <span>{highlight}</span>
                           </li>
                         )
@@ -209,14 +210,14 @@ export function Education() {
                 {educationItems[selectedEducation].details.coursework && (
                   <div>
                     <h4 className="text-lg font-bold mb-3 text-gray-800 flex items-center gap-2">
-                      <span className="w-1 h-6 bg-gradient-to-b from-[#2E6F40] to-[#68BA7F] rounded-full"></span>
+                      <span className="w-4 h-px bg-signal"></span>
                       Coursework
                     </h4>
                     <ul className="space-y-2">
                       {educationItems[selectedEducation].details.coursework.map(
                         (course, i) => (
                           <li key={i} className="flex items-start gap-3 text-gray-600">
-                            <span className="text-[#2E6F40] mt-1">•</span>
+                            <span className="text-signal mt-1">•</span>
                             <span>{course}</span>
                           </li>
                         )
@@ -228,14 +229,14 @@ export function Education() {
                 {educationItems[selectedEducation].details.achievements && (
                   <div>
                     <h4 className="text-lg font-bold mb-3 text-gray-800 flex items-center gap-2">
-                      <span className="w-1 h-6 bg-gradient-to-b from-[#2E6F40] to-[#68BA7F] rounded-full"></span>
+                      <span className="w-4 h-px bg-signal"></span>
                       Achievements
                     </h4>
                     <ul className="space-y-2">
                       {educationItems[selectedEducation].details.achievements.map(
                         (achievement, i) => (
                           <li key={i} className="flex items-start gap-3 text-gray-600">
-                            <span className="text-[#2E6F40] mt-1">•</span>
+                            <span className="text-signal mt-1">•</span>
                             <span>{achievement}</span>
                           </li>
                         )

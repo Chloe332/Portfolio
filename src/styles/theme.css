@@ -1,8 +1,16 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --font-size: 16px;
-  --background: #ffffff;
+  /* Engineering-notebook palette: paper, ink, one accent. */
+  --paper: #F5F2EA;
+  --paper-deep: #ECE7DB;
+  --ink: #1B1A17;
+  --ink-soft: #57534A;
+  --rule: #D9D2C3;
+  --signal: #C2410C; /* signal orange, ~4.7:1 on paper */
+
+  --font-size: 17px;
+  --background: var(--paper);
   --foreground: oklch(0.145 0 0);
   --card: #ffffff;
   --card-foreground: oklch(0.145 0 0);
@@ -79,6 +87,16 @@
 }
 
 @theme inline {
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-rule: var(--rule);
+  --color-signal: var(--signal);
+  --font-serif: 'EB Garamond', Garamond, 'Times New Roman', serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: 'EB Garamond', Garamond, 'Times New Roman', serif;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -125,7 +143,47 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-paper text-ink font-serif;
+    /* Faint notebook grid + a margin rule on the left edge. */
+    background-image:
+      linear-gradient(to right, transparent calc(2.25rem - 1px), color-mix(in srgb, var(--signal) 28%, transparent) calc(2.25rem - 1px), color-mix(in srgb, var(--signal) 28%, transparent) 2.25rem, transparent 2.25rem),
+      linear-gradient(to bottom, rgb(27 26 23 / 0.045) 1px, transparent 1px),
+      linear-gradient(to right, rgb(27 26 23 / 0.045) 1px, transparent 1px);
+    background-size: 100% 100%, 24px 24px, 24px 24px;
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  section[id] {
+    scroll-margin-top: 56px; /* fixed nav height */
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--signal) 22%, transparent);
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 640px) {
+    body {
+      background-size: 100% 100%, 24px 24px, 24px 24px;
+      background-image:
+        linear-gradient(to bottom, rgb(27 26 23 / 0.045) 1px, transparent 1px),
+        linear-gradient(to right, rgb(27 26 23 / 0.045) 1px, transparent 1px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 
   /**

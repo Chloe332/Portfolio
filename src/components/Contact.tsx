@@ -46,7 +46,7 @@ export function Contact() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-[#2E6F40] to-[#68BA7F] bg-clip-text text-transparent">
+          <h2 className="text-4xl sm:text-5xl mb-4 font-serif font-normal text-ink tracking-tight">
             Let’s Connect
           </h2>
 
@@ -98,7 +98,7 @@ export function Contact() {
                 className="h-full rounded-2xl border border-gray-200 bg-white/80 backdrop-blur-sm p-6 shadow-sm hover:shadow-lg transition-all"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-[#2E6F40] to-[#68BA7F] rounded-xl flex items-center justify-center text-white shrink-0">
+                  <div className="w-12 h-12 bg-ink rounded-xl flex items-center justify-center text-white shrink-0">
                     <Icon size={20} />
                   </div>
 

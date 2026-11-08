@@ -1,175 +1,121 @@
-import { motion } from 'motion/react';
-import { ContainerScroll } from './ui/container-scroll-animation';
+// Skills as a plain grouped list. Only skills from resume-agent-documentation.md §7
+// whose evidence is approved (✅) work. Nothing from the §9 "do not claim" list.
 
-interface SkillRow {
-  label: string;
-  emoji: string;
-  skills: string[];
-  accent: string; // tailwind text color class
-  bg: string;     // tailwind tag bg class
-  border: string; // tailwind tag border class
-}
+type SkillGroup = { label: string; skills: string[] };
 
-const skillRows: SkillRow[] = [
+const groups: SkillGroup[] = [
   {
     label: 'Languages',
-    emoji: '💻',
-    skills: ['Python', 'C', 'C++', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'SQL', 'Bash'],
-    accent: 'text-[#2563EB]',
-    bg: 'bg-[#2563EB]/10',
-    border: 'border-[#2563EB]/30',
+    skills: ['Python', 'C', 'C++', 'TypeScript / JavaScript', 'SQL', 'Bash', 'Go (basic)'],
   },
   {
-    label: 'AI & ML',
-    emoji: '🤖',
+    label: 'Embedded',
+    skills: [
+      'STM32 / ARM Cortex-M',
+      'FreeRTOS',
+      'RISC-V',
+      'Interrupts & hardware timers',
+      'PWM',
+      'UART',
+      'USB',
+      'GPIO',
+      'Embedded Linux',
+      'addr2line',
+    ],
+  },
+  {
+    label: 'Robotics',
+    skills: ['ROS 2', 'micro-ROS', 'Isaac Sim', 'Isaac Lab', 'Gazebo', 'RViz', 'URDF'],
+  },
+  {
+    label: 'ML & vision',
     skills: [
       'PyTorch',
       'TensorFlow',
-      'Scikit-learn',
-      'Transformers',
-      'YOLOv5',
-      'OpenCV',
-      'Pandas',
-      'NumPy',
+      'TensorRT',
+      'ONNX',
+      'INT8 quantization',
+      'Hugging Face Transformers',
       'MLflow',
-      'LLaMA'
+      'RF-DETR',
+      'YOLO',
+      'OpenCV',
+      'XGBoost',
+      'NumPy',
+      'Pandas',
     ],
-    accent: 'text-[#0D9488]',
-    bg: 'bg-[#0D9488]/10',
-    border: 'border-[#0D9488]/30',
   },
   {
-    label: 'Cloud & Dev Tools',
-    emoji: '☁️',
+    label: 'LLMs',
+    skills: ['LLaMA', 'RAG', 'Milvus', 'Prompt design', 'LLM evaluation'],
+  },
+  {
+    label: 'Systems & tools',
     skills: [
-      'AWS',
-      'AWS EC2',
-      'Google Cloud',
-      'Azure AI',
-      'Docker',
-      'Docker Compose',
-      'Git',
-      'GitHub',
       'Linux',
-      'Vite',
-      'React',
-      'Tailwind CSS',
-      'Sphinx',
-      'FluidSynth API',
-      'FastAPI'
-    ],
-    accent: 'text-[#16A34A]',
-    bg: 'bg-[#16A34A]/10',
-    border: 'border-[#16A34A]/30',
-  },
-  {
-    label: 'Robotics & Simulation',
-    emoji: '🚁',
-    skills: ['ROS', 'ROS2', 'Isaac Sim', 'Isaac Lab', 'URDF', 'Arduino'],
-    accent: 'text-[#D97706]',
-    bg: 'bg-[#D97706]/10',
-    border: 'border-[#D97706]/30',
-  },
-  {
-    label: 'Backend & Data',
-    emoji: '🛠️',
-    skills: [
-      'Node.js',
-      'Express',
-      'REST APIs',
-      'PostgreSQL',
+      'Docker',
+      'Git',
+      'GitHub Actions (CI/CD)',
+      'pytest',
+      'gRPC / Protobuf (buf)',
+      'ffmpeg',
+      'RTSP',
+      'TCP/UDP',
       'SQLite',
-      'MILVUS',
+      'Sphinx',
       'Selenium',
       'Beautiful Soup',
     ],
-    accent: 'text-[#DC2626]',
-    bg: 'bg-[#DC2626]/10',
-    border: 'border-[#DC2626]/30',
   },
-  // {
-  //   label: 'Spoken Languages',
-  //   emoji: '🗣️',
-  //   skills: ['French', 'English', 'Chinese', 'American Sign Language', 'Italian'],
-  //   accent: 'text-rose-600',
-  //   bg: 'bg-rose-50',
-  //   border: 'border-rose-200',
-  // },
+  {
+    label: 'Cloud',
+    skills: ['AWS (EC2)', 'Google Cloud', 'Azure AI'],
+  },
+  {
+    label: 'Hardware',
+    skills: ['Soldering', 'Multimeter', 'Wiring', 'Stepper drivers', 'Sensors'],
+  },
+  // PENDING APPROVAL: these come from 🟡 Mara work (DDS bridge, secure boot,
+  // GPS, radio link, multi-lid). Add them once that work is approved:
+  //   DDS (CycloneDDS, Fast DDS), Ansible, Secure Boot / UEFI / LUKS,
+  //   GNSS/RTK (u-blox), MAVLink, PX4, QGroundControl
+  //
+  // TODO(Chloe): these were on the old site but aren't in the resume doc.
+  // Confirm before adding back: HTML, CSS, Node.js, Express, REST APIs,
+  // PostgreSQL, FastAPI, Vite, Tailwind CSS, Docker Compose, Arduino, FluidSynth.
 ];
 
 export function Skills() {
   return (
-    <section id="skills" className="py-20">
-      <ContainerScroll
-        titleComponent={
-          <div className="text-center mb-8">
-            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-[#2E6F40] to-[#68BA7F] bg-clip-text text-transparent">
-              Skills & Technologies
-            </h2>
-            <p className="text-gray-500 max-w-xl mx-auto">
-              Technologies, tools, and languages I work with
-            </p>
-          </div>
-        }
-      >
-        <div className="bg-white rounded-2xl overflow-hidden">
-          {skillRows.map((row, rowIndex) => (
-            <motion.div
-              key={row.label}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: rowIndex * 0.07 }}
-              className={`flex flex-col sm:flex-row items-start sm:items-center gap-4 px-6 py-5 ${
-                rowIndex !== skillRows.length - 1
-                  ? 'border-b border-gray-100'
-                  : ''
-              }`}
+    <section id="skills" className="py-20 sm:py-28 border-b border-rule">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 lg:pl-16">
+        <h2 className="mb-12 sm:mb-16 font-serif font-normal text-4xl sm:text-5xl text-ink tracking-tight">
+          Skills
+        </h2>
+
+        <dl className="border-t border-rule">
+          {groups.map((group) => (
+            <div
+              key={group.label}
+              className="grid gap-x-10 gap-y-1.5 py-5 border-b border-rule md:grid-cols-[9rem_minmax(0,1fr)]"
             >
-              {/* Label */}
-              <div className="flex items-center gap-2 min-w-[190px] shrink-0">
-                <span className="text-xl">{row.emoji}</span>
-                <span className={`font-semibold text-sm ${row.accent}`}>
-                  {row.label}
-                </span>
-              </div>
-
-              {/* Divider (desktop only) */}
-              <div className="hidden sm:block w-px h-6 bg-gray-200 shrink-0" />
-
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2">
-                {row.skills.map((skill, skillIndex) => (
-                  <motion.span
-                    key={skill}
-                    initial={{ opacity: 0, scale: 0.85 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0.25,
-                      delay: rowIndex * 0.07 + skillIndex * 0.04,
-                    }}
-                    whileHover={{ scale: 1.08, y: -2 }}
-                    className={`
-                      px-3 py-1
-                      ${row.bg}
-                      ${row.accent}
-                      border ${row.border}
-                      rounded-full
-                      text-xs font-medium
-                      cursor-default
-                      transition-shadow duration-200
-                      hover:shadow-md
-                    `}
-                  >
+              <dt className="font-mono text-xs uppercase tracking-[0.08em] text-ink-soft md:pt-1.5">
+                {group.label}
+              </dt>
+              <dd className="max-w-[46rem] text-lg leading-relaxed text-ink">
+                {group.skills.map((skill, i) => (
+                  <span key={skill}>
                     {skill}
-                  </motion.span>
+                    {i < group.skills.length - 1 && (
+                      <span className="text-signal px-2" aria-hidden="true">·</span>
+                    )}
+                  </span>
                 ))}
-              </div>
-            </motion.div>
+              </dd>
+            </div>
           ))}
-        </div>
-      </ContainerScroll>
+        </dl>
+      </div>
     </section>
   );
 }

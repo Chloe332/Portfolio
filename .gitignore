@@ -3,3 +3,7 @@ dist/
 .DS_Store
 .env
 .vite
+
+# Private reference docs (NDA notes) - never publish
+agent.md
+resume-agent-documentation.md

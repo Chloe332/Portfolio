@@ -1,49 +1,112 @@
-import { motion } from 'motion/react';
-import { Briefcase, Award, X, MapPin } from 'lucide-react';
 import { useState } from 'react';
 
-export function Experience() {
-  const [selectedExperience, setSelectedExperience] = useState<number | null>(null);
+// Work history as an editorial list: dates on the left, role on the right,
+// a few bullets visible, "more" expands in place. Margin notes pull out the
+// numbers (only metrics backed by resume-agent-documentation.md §12).
 
-  const experiences = [
+type Entry = {
+  type: string;
+  title: string;
+  organization: string;
+  period: string;
+  description: string;
+  metrics: string[];
+  details: {
+    location?: string;
+    responsibilities?: string[];
+    projectDetails?: string[];
+    achievements?: string[];
+    technologies?: string[];
+    recognition?: string;
+    impact?: string;
+  };
+};
+
+export function Experience() {
+  const [open, setOpen] = useState<Record<number, boolean>>({});
+
+  const experiences: Entry[] = [
+    // Mara bullets come only from ✅ items in resume-agent-documentation.md.
+    // 🟡 items (DDS bridge, radio-link fixes, secure boot, GPS, etc.) stay off
+    // the public site until manager approval.
     {
       type: 'work',
-      title: 'Machine Learning and Robotics Software Engineer',
+      title: 'Robotics Software Engineer',
+      metrics: ['~0.4 s actuation', '1.4–1.5× faster INT8', '−1.3 s video latency'],
       organization: 'Mara Inc',
-      period: 'Jan - May 2026 \& Sept - Dec 2026',
+      period: 'Sept 2026 - Present',
       description:
-        'Improved drone perception and data infrastructure by shipping tracking-model upgrades, building scalable simulation pipelines, and automating dataset creation for autonomy workflows.',
-      icon: Briefcase,
+        'Software for a drone launcher: real-time firmware, edge ML inference, video streaming and API tooling.',
       details: {
+        // TODO(Chloe): confirm this location is OK to show.
         location: 'San Francisco, California, United States',
         responsibilities: [
-          'Improved transformer-based drone tracking performance by 350% by redesigning the MixFormer scoring module with custom loss tuning, label smoothing, fine-tuned weights, and template-update safeguards, then shipping the improvements into the production pipeline.',
-          'Generated hundreds of labeled UAV training scenarios by developing Isaac Sim environments with URDF-modeled assets and robotics behaviors, accelerating synthetic data creation and improving model robustness on hard edge cases.',
-          'Reduced drone dataset preparation time by 97% by building an internal dataset management CLI that automated GPS/NavLite time-range detection, clip generation, spherical-coordinate labeling, and metadata updates for training pipelines.',
-          'Built perception tooling that supported selective object detection and structured export of training data, making it easier to create high-quality labeled datasets for downstream robotics and ML systems.',
-          'Strengthened experimentation and evaluation workflows by using MLflow, benchmark-driven iteration, and simulation-based testing to improve tracking reliability before deployment.',
+          'Designed and built real-time embedded firmware (C, FreeRTOS, STM32) with a ROS 2 action server and status interface; moved step generation to hardware timer interrupts, removing timing jitter and cutting actuation time to ~0.4 s.',
+          'Debugged a firmware crash by decoding the fault address with addr2line, tracing it to a dangling pointer to stack memory.',
+          'Optimized model inference with INT8 quantization in TensorRT on edge GPUs (1.4–1.5× faster); diagnosed a quantization failure caused by calibration clipping and recovered accuracy to within 0.03 F1 of full precision.',
+          'Cut 1.3 s of latency from a multithreaded, unit-tested ROS 2 video node by replacing a buffering decoder with ffmpeg.',
+          'Built a gRPC/Protobuf code-generation pipeline (buf) producing Python, TypeScript, Go and C++ SDKs, with CI/CD (GitHub Actions, Docker) for build checks and versioned release artifacts.',
+          'Automated provisioning of embedded Linux boards with a reproducible Bash tool (~5–10 min per board).',
+        ],
+        technologies: [
+          'C',
+          'C++',
+          'Python',
+          'FreeRTOS',
+          'STM32',
+          'ROS 2',
+          'micro-ROS',
+          'TensorRT',
+          'ffmpeg',
+          'gRPC',
+          'Docker',
+          'GitHub Actions',
+        ],
+        impact:
+          'Cut lid actuation to ~0.4 s, made edge inference 1.4–1.5× faster with INT8, and removed 1.3 s of video latency.',
+      },
+    },
+    {
+      type: 'work',
+      title: 'AI Engineer',
+      metrics: ['+350% tracking AUC', '−97% dataset prep', '~$100K saved (est.)'],
+      organization: 'Mara Inc',
+      period: 'Jan - May 2026',
+      description:
+        'ML and data work for drone detection and tracking: model training, loss design, simulation and dataset tooling.',
+      details: {
+        // TODO(Chloe): confirm this location is OK to show.
+        location: 'San Francisco, California, United States',
+        responsibilities: [
+          "Improved a transformer-based tracking model's success rate (AUC) by 350% by designing a custom loss function (asymmetric loss, CIoU with size penalties, label smoothing) and drift-guarded template updates; shipped to production.",
+          'Built a Python CLI that cut dataset preparation time by 97%, saving an estimated $100K, using statistical analysis of telemetry to detect usable segments, linear interpolation, and coordinate transforms to auto-generate labels.',
+          'Refactored the tool into a modular MVC architecture after code review; auto-generated Sphinx docs from docstrings.',
+          'Trained and benchmarked RF-DETR object detection models with MLflow experiment tracking, and generated synthetic training data in Isaac Sim to improve robustness.',
+          'Generated hundreds of labeled UAV training scenarios by building custom Isaac Sim environments with URDF-modeled objects and RL-driven robot behaviors, improving model robustness.',
+          'Delivered an autonomous system field deployment in 3 days for a high-stakes investor demo, owning software setup, hardware bring-up and live debugging.',
         ],
         technologies: [
           'Python',
           'PyTorch',
           'NumPy',
-          'ROS',
-          'Isaac Sim',
-          'Docker',
           'MLflow',
+          'Isaac Sim',
+          'ROS 2',
+          'Docker',
+          'Sphinx',
         ],
         impact:
-          'Train and Improved transformer-based tracking model\'s reliability performance by 350%, which was placed in company\'s main product and production pipeline.',
+          'Raised tracking success rate (AUC) by 350% in production and cut dataset prep time by 97% (~$100K estimated savings).',
       },
     },
     {
       type: 'work',
       title: 'AI Project Developer',
-      organization: 'Accenture & Microsoft Azure',
+      metrics: ['team of 5'],
+      organization: 'Avanade',
       period: 'May - August 2025',
       description:
         'Built an AI-powered browser safety prototype by leading product design, integrating machine learning with Azure AI services, and delivering scam-detection workflows for end users.',
-      icon: Briefcase,
       details: {
         location: 'Toronto, Ontario, Canada',
         responsibilities: [
@@ -63,11 +126,11 @@ export function Experience() {
     {
       type: 'work',
       title: 'AI & Software Engineer',
+      metrics: ['−70% upload time'],
       organization: 'Wilson & Wilbur Consulting Group',
       period: 'Sept 2024 - July 2025',
       description:
         'Built backend and retrieval infrastructure for an AI chatbot by integrating language models into containerized services, deploying a RAG pipeline, and scaling automated data ingestion workflows.',
-      icon: Briefcase,
       details: {
         location: 'Toronto, Ontario, Canada',
         responsibilities: [
@@ -93,11 +156,11 @@ export function Experience() {
     {
       type: 'work',
       title: 'Assistant Director & Math and English Tutor',
+      metrics: ['80+ students'],
       organization: 'Kumon Math and Reading Center',
       period: 'August 2022 - April 2024',
       description:
         'Supported large-scale individualized tutoring operations by tailoring instruction for dozens of students, tracking academic progress, and communicating closely with families.',
-      icon: Briefcase,
       details: {
         location: 'Maryland, USA',
         responsibilities: [
@@ -119,11 +182,11 @@ export function Experience() {
     {
       type: 'work',
       title: 'AI & Robotics Project Member',
+      metrics: [] as string[],
       organization: 'University of Maryland',
       period: 'July 2022',
       description:
         'Built a robotics perception and navigation system by combining object detection, semantic mapping, and real-time model integration for ground robot autonomy.',
-      icon: Briefcase,
       details: {
         location: 'College Park, Maryland, USA',
         projectDetails: [
@@ -145,12 +208,12 @@ export function Experience() {
     },
     {
       type: 'work',
-      title: 'NASA Team Co-Leader and Project Member',
-      organization: 'NASA',
+      title: 'Team Lead (Competition)',
+      metrics: ['team of 8'],
+      organization: 'NASA Human Exploration Rover Challenge',
       period: 'May 2021 - Feb 2022',
       description:
         'Led an 8-person engineering team in designing a Mars rover for NASA’s Human Exploration Rover Challenge, coordinating technical work and presenting the final design to NASA engineers.',
-      icon: Briefcase,
       details: {
         location: 'Washington, DC, USA',
         responsibilities: [
@@ -161,7 +224,7 @@ export function Experience() {
         achievements: [
           // 'Successfully completed the obstacle course with 85% efficiency.',
           // 'Built a rover that withstood 500+ lbs load-capacity testing.',
-          'Received positive feedback from many NASA engineers on the design review and engineering prowess.',
+          'Received positive feedback from NASA engineers on the design review.',
         ],
         technologies: [
           'Leadership',
@@ -175,316 +238,84 @@ export function Experience() {
     },
   ];
 
-  const getColorClasses = (type: string) => {
-    switch (type) {
-      case 'work':
-        return {
-          badge: 'bg-emerald-50 text-emerald-700',
-          text: 'text-emerald-700',
-          hover: 'text-emerald-700 hover:text-emerald-900',
-          gradient: 'from-emerald-500 to-emerald-700',
-        };
-      case 'achievement':
-        return {
-          badge: 'bg-green-50 text-green-700',
-          text: 'text-green-700',
-          hover: 'text-green-700 hover:text-green-900',
-          gradient: 'from-green-400 to-green-600',
-        };
-      default:
-        return {
-          badge: 'bg-gray-50 text-gray-700',
-          text: 'text-gray-700',
-          hover: 'text-gray-700 hover:text-gray-900',
-          gradient: 'from-gray-400 to-gray-600',
-        };
-    }
-  };
 
   return (
-    <section id="experience" className="py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-[#2E6F40] to-[#68BA7F] bg-clip-text text-transparent">
-            Experience & Achievements
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            My professional journey and accomplishments
-          </p>
-        </motion.div>
+    <section id="experience" className="py-20 sm:py-28 border-b border-rule">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 lg:pl-16">
+        <header className="mb-12 sm:mb-16 flex items-baseline gap-4">
+          <h2 className="font-serif font-normal text-4xl sm:text-5xl text-ink tracking-tight">Work</h2>
+        </header>
 
-        <div className="relative">
-          {/* Timeline line */}
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#253D2C] via-[#2E6F40] to-[#68BA7F]" />
+        <ol className="border-t border-rule">
+          {experiences.map((exp, index) => {
+            const bullets = [
+              ...(exp.details.responsibilities ?? exp.details.projectDetails ?? []),
+              ...(exp.details.achievements ?? []),
+              ...(exp.details.recognition ? [exp.details.recognition] : []),
+            ];
+            const isOpen = !!open[index];
+            const panelId = `exp-more-${index}`;
 
-          <div className="space-y-12">
-            {experiences.map((exp, index) => {
-              const Icon = exp.icon;
-              const colorClasses = getColorClasses(exp.type);
-              const isEven = index % 2 === 0;
-
-              return (
-                <motion.div
-                  key={`${exp.title}-${index}`}
-                  initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className={`relative grid md:grid-cols-2 gap-8 items-center ${
-                    isEven ? '' : 'md:flex-row-reverse'
-                  }`}
-                >
-                  {/* Content */}
-                  <div className={isEven ? 'md:text-right' : 'md:col-start-2'}>
-                    <motion.div
-                      whileHover={{ scale: 1.02, y: -5 }}
-                      className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all cursor-pointer"
-                      onClick={() => setSelectedExperience(index)}
-                    >
-                      <div
-                        className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${colorClasses.badge} mb-3 text-sm font-medium`}
-                      >
-                        <Icon size={16} />
-                        {exp.period}
-                      </div>
-                      <h3 className="text-xl font-bold mb-2 text-gray-800">
-                        {exp.title}
-                      </h3>
-                      <p className={`${colorClasses.text} font-medium mb-1`}>
-                        {exp.organization}
-                      </p>
-                      {exp.details.location && (
-                        <p
-                          className={`text-sm text-gray-500 mb-3 flex items-center gap-1.5 ${
-                            isEven ? 'md:justify-end' : ''
-                          }`}
-                        >
-                          <MapPin size={14} className="shrink-0" />
-                          {exp.details.location}
-                        </p>
-                      )}
-                      <p className="text-gray-600 mb-3">{exp.description}</p>
-
-                      {exp.details.technologies && (
-                        <div
-                          className={`flex flex-wrap gap-2 mb-4 ${
-                            isEven ? 'md:justify-end' : ''
-                          }`}
-                        >
-                          {exp.details.technologies.slice(0, 5).map((tech) => (
-                            <span
-                              key={tech}
-                              className="inline-flex items-center justify-center px-3 py-1 rounded-md bg-gray-900 text-white text-xs font-semibold"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                          {exp.details.technologies.length > 5 && (
-                            <span className="inline-flex items-center justify-center px-3 py-1 rounded-md bg-gray-100 text-gray-600 text-xs font-medium border border-gray-200">
-                              +{exp.details.technologies.length - 5}
-                            </span>
-                          )}
-                        </div>
-                      )}
-
-                      <button className={`text-sm ${colorClasses.hover} font-medium`}>
-                        Learn More →
-                      </button>
-                    </motion.div>
-                  </div>
-
-                  {/* Icon in center (visible on desktop) */}
-                  <div className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <motion.div
-                      whileHover={{ scale: 1.2, rotate: 360 }}
-                      transition={{ duration: 0.5 }}
-                      className={`w-12 h-12 bg-gradient-to-br ${colorClasses.gradient} rounded-full flex items-center justify-center text-white shadow-lg`}
-                    >
-                      <Icon size={24} />
-                    </motion.div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Detailed View Modal */}
-        {selectedExperience !== null && (
-          <motion.div
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedExperience(null)}
-          >
-            <motion.div
-              className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[85vh] overflow-y-auto relative"
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="sticky top-0 bg-white border-b border-gray-200 px-8 py-6 flex justify-between items-start rounded-t-2xl z-10">
-                <div className="pr-8">
-                  <h3 className="text-2xl font-bold text-gray-800">
-                    {experiences[selectedExperience].title}
-                  </h3>
-                  <p className="text-gray-600 mt-1">
-                    {experiences[selectedExperience].organization} • {experiences[selectedExperience].period}
-                  </p>
-                  {experiences[selectedExperience].details.location && (
-                    <p className="text-sm text-gray-500 mt-1">
-                      📍 {experiences[selectedExperience].details.location}
-                    </p>
-                  )}
-                </div>
-                <motion.button
-                  className="text-gray-500 hover:text-gray-700 p-2 hover:bg-gray-100 rounded-lg"
-                  onClick={() => setSelectedExperience(null)}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <X size={24} />
-                </motion.button>
-              </div>
-
-              <div className="px-8 py-6 space-y-6">
-                <p className="text-gray-600 leading-relaxed">
-                  {experiences[selectedExperience].description}
+            return (
+              <li
+                key={`${exp.title}-${index}`}
+                className="grid gap-x-10 gap-y-2 py-8 border-b border-rule md:grid-cols-[9rem_minmax(0,1fr)]"
+              >
+                <p className="font-mono text-xs uppercase tracking-[0.06em] text-ink-soft md:pt-2">
+                  {exp.period}
                 </p>
 
-                {experiences[selectedExperience].details.technologies && (
-                  <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6">
-                    <div className="flex items-center justify-between gap-4 mb-4">
-                      <h4 className="text-lg font-bold text-gray-800">Tech Stack</h4>
-                      <span className="text-sm text-gray-500">Skills, Tools & Languages</span>
-                    </div>
+                <div className="min-w-0 max-w-[42rem]">
+                  <h3 className="font-serif text-[1.65rem] leading-tight text-ink">
+                    {exp.title}
+                    <span className="text-ink-soft"> · {exp.organization}</span>
+                  </h3>
 
-                    <div className="flex flex-wrap gap-3">
-                      {experiences[selectedExperience].details.technologies.map((tech, i) => (
-                        <span
-                          key={i}
-                          className="inline-flex items-center justify-center px-4 py-1.5 rounded-md bg-gray-900 text-white text-sm font-semibold"
-                        >
-                          {tech}
-                        </span>
+                  <p className="mt-2 text-lg leading-relaxed text-ink-soft">{exp.description}</p>
+
+                  {exp.metrics.length > 0 && (
+                    <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1 font-mono text-[0.8rem] text-signal">
+                      {exp.metrics.map((m) => (
+                        <li key={m}>{m}</li>
                       ))}
+                    </ul>
+                  )}
+
+                  {isOpen && (
+                    <div id={panelId} className="mt-5 space-y-4">
+                      <ul className="space-y-3 text-lg leading-relaxed text-ink">
+                        {bullets.map((b, i) => (
+                          <li key={i} className="relative pl-5">
+                            <span className="absolute left-0 top-[0.75em] h-px w-2.5 bg-ink-soft" aria-hidden="true" />
+                            {b}
+                          </li>
+                        ))}
+                      </ul>
+                      <p className="font-mono text-xs leading-relaxed text-ink-soft">
+                        {exp.details.location && <>{exp.details.location}<br /></>}
+                        {exp.details.technologies && exp.details.technologies.length > 0 && (
+                          <>Tools: {exp.details.technologies.join(' · ')}</>
+                        )}
+                      </p>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {experiences[selectedExperience].details.responsibilities && (
-                  <div>
-                    <h4 className="text-lg font-bold mb-3 text-gray-800 flex items-center gap-2">
-                      <span className="w-1 h-6 bg-gradient-to-b from-[#2E6F40] to-[#68BA7F] rounded-full"></span>
-                      Responsibilities
-                    </h4>
-                    <ul className="space-y-2">
-                      {experiences[selectedExperience].details.responsibilities.map(
-                        (responsibility, i) => (
-                          <li key={i} className="flex items-start gap-3 text-gray-600">
-                            <span className="text-[#2E6F40] mt-1">•</span>
-                            <span>{responsibility}</span>
-                          </li>
-                        )
-                      )}
-                    </ul>
-                  </div>
-                )}
-
-                {experiences[selectedExperience].details.achievements && (
-                  <div>
-                    <h4 className="text-lg font-bold mb-3 text-gray-800 flex items-center gap-2">
-                      <span className="w-1 h-6 bg-gradient-to-b from-[#2E6F40] to-[#68BA7F] rounded-full"></span>
-                      Achievements
-                    </h4>
-                    <ul className="space-y-2">
-                      {experiences[selectedExperience].details.achievements.map(
-                        (achievement, i) => (
-                          <li key={i} className="flex items-start gap-3 text-gray-600">
-                            <span className="text-[#2E6F40] mt-1">•</span>
-                            <span>{achievement}</span>
-                          </li>
-                        )
-                      )}
-                    </ul>
-                  </div>
-                )}
-
-                {experiences[selectedExperience].details.projectDetails && (
-                  <div>
-                    <h4 className="text-lg font-bold mb-3 text-gray-800 flex items-center gap-2">
-                      <span className="w-1 h-6 bg-gradient-to-b from-[#2E6F40] to-[#68BA7F] rounded-full"></span>
-                      Project Details
-                    </h4>
-                    <ul className="space-y-2">
-                      {experiences[selectedExperience].details.projectDetails.map(
-                        (detail, i) => (
-                          <li key={i} className="flex items-start gap-3 text-gray-600">
-                            <span className="text-[#2E6F40] mt-1">•</span>
-                            <span>{detail}</span>
-                          </li>
-                        )
-                      )}
-                    </ul>
-                  </div>
-                )}
-
-            
-
-                {experiences[selectedExperience].details.skills && (
-                  <div>
-                    <h4 className="text-lg font-bold mb-3 text-gray-800 flex items-center gap-2">
-                      <span className="w-1 h-6 bg-gradient-to-b from-[#2E6F40] to-[#68BA7F] rounded-full"></span>
-                      Skills
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {experiences[selectedExperience].details.skills.map(
-                        (skill, i) => (
-                          <span
-                            key={i}
-                            className="px-3 py-1.5 bg-gradient-to-r from-emerald-50 to-green-50 text-emerald-800 rounded-lg text-sm font-medium border border-emerald-200"
-                          >
-                            {skill}
-                          </span>
-                        )
-                      )}
-                    </div>
-                  </div>
-                )}
-
-                {experiences[selectedExperience].details.recognition && (
-                  <div className="bg-gradient-to-r from-yellow-50 to-amber-50 border border-yellow-200 rounded-xl p-4">
-                    <h4 className="text-lg font-bold mb-2 text-gray-800 flex items-center gap-2">
-                      🏆 Recognition
-                    </h4>
-                    <p className="text-gray-700">
-                      {experiences[selectedExperience].details.recognition}
-                    </p>
-                  </div>
-                )}
-
-                {experiences[selectedExperience].details.impact && (
-                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-4">
-                    <h4 className="text-lg font-bold mb-2 text-gray-800 flex items-center gap-2">
-                      💡 Impact
-                    </h4>
-                    <p className="text-gray-700">
-                      {experiences[selectedExperience].details.impact}
-                    </p>
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
+                  {bullets.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => setOpen((o) => ({ ...o, [index]: !o[index] }))}
+                      aria-expanded={isOpen}
+                      aria-controls={panelId}
+                      className="mt-4 font-mono text-xs uppercase tracking-[0.08em] text-ink-soft hover:text-signal transition-colors"
+                    >
+                      {isOpen ? '− hide details' : '+ details'}
+                    </button>
+                  )}
+                </div>
+              </li>
+            );
+          })}
+        </ol>
       </div>
     </section>
   );
