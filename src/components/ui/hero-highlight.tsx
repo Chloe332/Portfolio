@@ -18,11 +18,14 @@ export function Highlight({ children, className = '' }: HighlightProps) {
         delay: 0.15,
       }}
       style={{
+        // Signal-orange marker, matching the site's one accent color.
+        backgroundImage:
+          'linear-gradient(to right, rgb(194 65 12 / 0.18), rgb(194 65 12 / 0.18))',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'left center',
         display: 'inline',
       }}
-      className={`relative inline rounded-lg bg-gradient-to-r from-emerald-200 to-green-200 px-1 py-0.5 text-gray-800 ${className}`}
+      className={`relative inline rounded-[2px] px-1 py-0.5 text-ink ${className}`}
     >
       {children}
     </motion.span>

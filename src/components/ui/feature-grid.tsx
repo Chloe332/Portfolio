@@ -57,7 +57,7 @@ export function FeatureGrid({
         {(sectionTitle || sectionSubtitle) && (
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-14">
             {sectionTitle && (
-              <h2 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-[#253D2C] via-[#2E6F40] to-[#68BA7F] bg-clip-text text-transparent">
+              <h2 className="text-4xl sm:text-5xl font-serif font-normal leading-tight text-ink tracking-tight pb-1">
                 {sectionTitle}
               </h2>
             )}

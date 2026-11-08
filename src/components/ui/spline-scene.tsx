@@ -7,24 +7,6 @@ const Spline = lazy(() => import('@splinetool/react-spline'))
 interface SplineSceneProps {
   scene: string
   className?: string
-  /**
-   * Name of the rig object to wave (found via `strings` on the compiled
-   * .splinecode scene — this is a shoulder-level "Empty" pivot, so
-   * rotating it swings the whole elbow/forearm/hand chain beneath it).
-   * There's no pre-authored "wave" animation in the scene, so this is
-   * done by directly driving the object's rotation frame-by-frame rather
-   * than triggering a Spline-side state.
-   */
-  waveObjectName?: string
-  /**
-   * Delay before the wave starts, timed to land just after the scene's
-   * built-in on-load camera zoom-out (face -> full body) finishes, plus
-   * the requested 0.3s pause. The zoom-out's own duration isn't exposed
-   * by the scene file, so this is an estimate — tune it after watching
-   * the live page.
-   */
-  waveDelayMs?: number
-  waveDurationMs?: number
   /** Camera zoom (1 = scene default). Below 1 zooms out so the whole robot fits. */
   zoom?: number
 }
@@ -32,9 +14,6 @@ interface SplineSceneProps {
 export function SplineScene({
   scene,
   className,
-  waveObjectName,
-  waveDelayMs = 2300,
-  waveDurationMs = 1000,
   zoom,
 }: SplineSceneProps) {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -72,43 +51,7 @@ export function SplineScene({
   }, [])
 
   const handleLoad = (app: Application) => {
-    if (zoom !== undefined) {
-      app.setZoom(zoom)
-      // The scene runs its own intro camera move; re-apply once it's done.
-      window.setTimeout(() => app.setZoom(zoom), waveDelayMs)
-    }
-    if (!waveObjectName) return
-
-    const arm = app.findObjectByName(waveObjectName)
-    if (!arm) {
-      console.warn(
-        `[SplineScene] Couldn't find an object named "${waveObjectName}" to wave.`
-      )
-      return
-    }
-
-    const baseZ = arm.rotation.z
-
-    window.setTimeout(() => {
-      const start = performance.now()
-      const cycles = 3 // back-and-forth swings
-
-      const step = (now: number) => {
-        const t = Math.min((now - start) / waveDurationMs, 1)
-        // Swing side to side, easing the amplitude down to zero so the
-        // arm settles back to its resting pose instead of snapping.
-        const amplitude = 0.35 * (1 - t)
-        arm.rotation.z = baseZ + Math.sin(t * Math.PI * cycles) * amplitude
-
-        if (t < 1) {
-          requestAnimationFrame(step)
-        } else {
-          arm.rotation.z = baseZ
-        }
-      }
-
-      requestAnimationFrame(step)
-    }, waveDelayMs)
+    if (zoom !== undefined) app.setZoom(zoom)
   }
 
   return (

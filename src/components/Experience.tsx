@@ -32,7 +32,7 @@ export function Experience() {
     {
       type: 'work',
       title: 'Robotics Software Engineer',
-      metrics: ['~0.4 s actuation', '1.4–1.5× faster INT8', '−1.3 s video latency'],
+      metrics: ['1.4–1.5× faster inference via INT8 quantization (TensorRT)', '−1.3 s video latency with an ffmpeg pipeline', '~0.4 s actuation from hardware-timer firmware'],
       organization: 'Mara Inc',
       period: 'Sept 2026 - Present',
       description:
@@ -69,7 +69,7 @@ export function Experience() {
     {
       type: 'work',
       title: 'AI Engineer',
-      metrics: ['+350% tracking AUC', '−97% dataset prep', '~$100K saved (est.)'],
+      metrics: ['+350% tracking success rate (AUC) from a custom loss', '−97% dataset prep time with a Python CLI', '~$100K estimated savings'],
       organization: 'Mara Inc',
       period: 'Jan - May 2026',
       description:
@@ -82,7 +82,7 @@ export function Experience() {
           'Built a Python CLI that cut dataset preparation time by 97%, saving an estimated $100K, using statistical analysis of telemetry to detect usable segments, linear interpolation, and coordinate transforms to auto-generate labels.',
           'Refactored the tool into a modular MVC architecture after code review; auto-generated Sphinx docs from docstrings.',
           'Trained and benchmarked RF-DETR object detection models with MLflow experiment tracking, and generated synthetic training data in Isaac Sim to improve robustness.',
-          'Generated hundreds of labeled UAV training scenarios by building custom Isaac Sim environments with URDF-modeled objects and RL-driven robot behaviors, improving model robustness.',
+          'Generated labeled UAV training scenarios in Isaac Sim and other simulators to expand synthetic training data and improve model robustness.',
           'Delivered an autonomous system field deployment in 3 days for a high-stakes investor demo, owning software setup, hardware bring-up and live debugging.',
         ],
         technologies: [
@@ -102,7 +102,7 @@ export function Experience() {
     {
       type: 'work',
       title: 'AI Project Developer',
-      metrics: ['team of 5'],
+      metrics: ['Led a team of 5'],
       organization: 'Avanade',
       period: 'May - August 2025',
       description:
@@ -126,7 +126,7 @@ export function Experience() {
     {
       type: 'work',
       title: 'AI & Software Engineer',
-      metrics: ['−70% upload time'],
+      metrics: ['−70% vector DB upload time in a RAG pipeline'],
       organization: 'Wilson & Wilbur Consulting Group',
       period: 'Sept 2024 - July 2025',
       description:
@@ -134,9 +134,9 @@ export function Experience() {
       details: {
         location: 'Toronto, Ontario, Canada',
         responsibilities: [
-          'Integrated the LLaMA 1B model into a Dockerized chat service, exposing API endpoints for conversation, summarization, and reasoning while designing prompts, evaluating outputs, and implementing unit tests.',
-          'Developed a RAG pipeline and deployed a vector data service using Milvus and Docker, implementing CRUD operations on vector databases to improve efficiency and reduce upload time by 70%.',
-          'Built and deployed a web scraper using Selenium and Beautiful Soup, leveraging multithreading and multiprocessing to scale automated data ingestion, deploying to AWS EC2, and optimizing extraction with SQL and SQLite.',
+          'Integrated the LLaMA 1B LLM into a Dockerized chat service, exposing API endpoints for conversation, summarization, and reasoning; designed prompts, evaluated outputs with Transformers/evaluate, and implemented unit tests.',
+          'Developed a Retrieval-Augmented Generation (RAG) pipeline and deployed a vector database service using Milvus and Docker, implementing CRUD operations on vector databases to improve efficiency and reduce upload time by 70%.',
+          'Built and deployed a web scraper using Selenium and Beautiful Soup, leveraging multithreading and multiprocessing to scale automated data ingestion, implemented unit tests, deployed to AWS EC2, and optimized data extraction with SQL/SQLite.',
         ],
         technologies: [
           'Python',
@@ -147,7 +147,10 @@ export function Experience() {
           'Beautiful Soup',
           'SQLite',
           'SQL',
-          'Transformers',
+          'Hugging Face Transformers / evaluate',
+          'LLaMA',
+          'RAG',
+          'Multithreading',
         ],
         impact:
           'Improved chatbot retrieval quality and backend efficiency by combining containerized LLM services, vector search, and scalable ingestion infrastructure.',
@@ -156,7 +159,7 @@ export function Experience() {
     {
       type: 'work',
       title: 'Assistant Director & Math and English Tutor',
-      metrics: ['80+ students'],
+      metrics: ['80+ students tutored'],
       organization: 'Kumon Math and Reading Center',
       period: 'August 2022 - April 2024',
       description:
@@ -182,7 +185,9 @@ export function Experience() {
     {
       type: 'work',
       title: 'AI & Robotics Project Member',
-      metrics: [] as string[],
+      // No numbers are recorded for this project in the resume doc, so these are
+      // factual highlights. TODO(Chloe): add real numbers (fps, accuracy) if you have them.
+      metrics: ['Real-time YOLOv5 detection', 'LIDAR map + semantic room inference', 'Live demo to faculty'],
       organization: 'University of Maryland',
       period: 'July 2022',
       description:
@@ -190,7 +195,7 @@ export function Experience() {
       details: {
         location: 'College Park, Maryland, USA',
         projectDetails: [
-          'Developed an object detection and semantic navigation system using Python, PyTorch, TensorFlow, and ROS2 to support real-time perception, tracking, and probabilistic semantic mapping for ground robot navigation.',
+          'Developed an object detection and semantic navigation system using Python, PyTorch, TensorFlow, and ROS to support real-time perception, tracking, and probabilistic semantic mapping for ground robot navigation.',
           'Built a custom neural network and integrated YOLOv5 with a custom binary classification model to enable real-time detection and adaptive navigation decisions.',
           'Fused sensor and visual input data using pandas to streamline data handling and support more reliable downstream robotics behavior.',
         ],
@@ -198,7 +203,10 @@ export function Experience() {
           'Python',
           'PyTorch',
           'TensorFlow',
-          'ROS2',
+          'ROS',
+          'Gazebo',
+          'RViz',
+          'LIDAR',
           'YOLOv5',
           'Pandas',
         ],
@@ -209,7 +217,7 @@ export function Experience() {
     {
       type: 'work',
       title: 'Team Lead (Competition)',
-      metrics: ['team of 8'],
+      metrics: ['Led a team of 8'],
       organization: 'NASA Human Exploration Rover Challenge',
       period: 'May 2021 - Feb 2022',
       description:
@@ -274,7 +282,7 @@ export function Experience() {
                   <p className="mt-2 text-lg leading-relaxed text-ink-soft">{exp.description}</p>
 
                   {exp.metrics.length > 0 && (
-                    <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1 font-mono text-[0.8rem] text-signal">
+                    <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-1.5 font-mono text-[0.8rem] leading-snug text-signal">
                       {exp.metrics.map((m) => (
                         <li key={m}>{m}</li>
                       ))}

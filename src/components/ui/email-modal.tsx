@@ -85,7 +85,7 @@ export function EmailModal({ isOpen, onClose }: EmailModalProps) {
             <div className="p-6">
               {status === 'success' ? (
                 <div className="py-6 text-center">
-                  <CheckCircle2 className="mx-auto mb-3 text-[#2E6F40]" size={40} />
+                  <CheckCircle2 className="mx-auto mb-3 text-signal" size={40} />
                   <p className="text-gray-800 font-semibold mb-1">Message sent!</p>
                   <p className="text-gray-500 text-sm">
                     Thanks for reaching out — I'll get back to you soon.
@@ -110,7 +110,7 @@ export function EmailModal({ isOpen, onClose }: EmailModalProps) {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-[#2E6F40] focus:ring-2 focus:ring-[#2E6F40]/20 outline-none transition-all"
+                      className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-signal focus:ring-2 focus:ring-signal/20 outline-none transition-all"
                       placeholder="Your name"
                     />
                   </div>
@@ -126,7 +126,7 @@ export function EmailModal({ isOpen, onClose }: EmailModalProps) {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-[#2E6F40] focus:ring-2 focus:ring-[#2E6F40]/20 outline-none transition-all"
+                      className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-signal focus:ring-2 focus:ring-signal/20 outline-none transition-all"
                       placeholder="your.email@example.com"
                     />
                   </div>
@@ -142,7 +142,7 @@ export function EmailModal({ isOpen, onClose }: EmailModalProps) {
                       onChange={handleChange}
                       required
                       rows={4}
-                      className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-[#2E6F40] focus:ring-2 focus:ring-[#2E6F40]/20 outline-none transition-all resize-none"
+                      className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-signal focus:ring-2 focus:ring-signal/20 outline-none transition-all resize-none"
                       placeholder="Your message..."
                     />
                   </div>

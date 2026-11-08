@@ -59,7 +59,7 @@ export function Projects() {
       description:
         'Built a real-time object detection pipeline for autonomous robotic navigation. Developed a vision system for obstacle recognition.',
       image: projectImages.navi1,
-      tags: ['Python', 'TensorFlow', 'ROS2', 'YOLOv5', 'Pandas'],
+      tags: ['Python', 'TensorFlow', 'ROS', 'YOLOv5', 'Pandas'],
       github: null,
       demo: null,
       demoVideo: `${import.meta.env.BASE_URL}videos/navi.mp4`,

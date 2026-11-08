@@ -1,4 +1,4 @@
-// Skills as a plain grouped list. Only skills from resume-agent-documentation.md §7
+// Skills as a plain grouped list. A leading "*" marks a key skill (shown in bold). Only skills from resume-agent-documentation.md §7
 // whose evidence is approved (✅) work. Nothing from the §9 "do not claim" list.
 
 type SkillGroup = { label: string; skills: string[] };
@@ -6,58 +6,85 @@ type SkillGroup = { label: string; skills: string[] };
 const groups: SkillGroup[] = [
   {
     label: 'Languages',
-    skills: ['Python', 'C', 'C++', 'TypeScript / JavaScript', 'SQL', 'Bash', 'Go (basic)'],
+    skills: ['*Python', '*C', '*C++', 'TypeScript / JavaScript', 'SQL', 'Bash', 'Go (basic)'],
   },
   {
     label: 'Embedded',
     skills: [
-      'STM32 / ARM Cortex-M',
-      'FreeRTOS',
+      '*STM32 / ARM Cortex-M',
+      '*FreeRTOS',
       'RISC-V',
+      '*Real-time systems',
       'Interrupts & hardware timers',
       'PWM',
       'UART',
       'USB',
       'GPIO',
-      'Embedded Linux',
+      'Motor control',
+      'Raspberry Pi',
+      '*Embedded Linux',
+      'Hardware bring-up',
       'addr2line',
     ],
   },
   {
     label: 'Robotics',
-    skills: ['ROS 2', 'micro-ROS', 'Isaac Sim', 'Isaac Lab', 'Gazebo', 'RViz', 'URDF'],
+    skills: [
+      '*ROS 2',
+      'ROS',
+      '*micro-ROS',
+      'MAVLink',
+      '*PX4',
+      'MAVProxy',
+      'QGroundControl',
+      'LIDAR',
+      '*Isaac Sim',
+      'Isaac Lab',
+      'Gazebo',
+      'RViz',
+    ],
   },
   {
     label: 'ML & vision',
     skills: [
-      'PyTorch',
+      '*PyTorch',
       'TensorFlow',
-      'TensorRT',
+      '*TensorRT',
       'ONNX',
-      'INT8 quantization',
+      '*INT8 quantization',
       'Hugging Face Transformers',
       'MLflow',
+      '*Object detection & tracking',
       'RF-DETR',
       'YOLO',
-      'OpenCV',
+      'BoT-SORT',
+      '*OpenCV',
+      'CNNs',
+      'Loss function design',
+      'Synthetic data',
       'XGBoost',
+      'Random forest',
+      'Logistic regression',
+      'Cross-validation',
       'NumPy',
       'Pandas',
     ],
   },
   {
     label: 'LLMs',
-    skills: ['LLaMA', 'RAG', 'Milvus', 'Prompt design', 'LLM evaluation'],
+    skills: ['*LLaMA', '*RAG', 'Milvus (vector DB)', 'Prompt design', 'LLM evaluation', 'Azure AI Language'],
   },
   {
     label: 'Systems & tools',
     skills: [
-      'Linux',
-      'Docker',
+      '*Linux',
+      '*Docker',
       'Git',
-      'GitHub Actions (CI/CD)',
+      '*GitHub Actions (CI/CD)',
       'pytest',
-      'gRPC / Protobuf (buf)',
+      '*gRPC / Protocol Buffers (buf)',
+      'Multithreading & multiprocessing',
+      'MVC',
       'ffmpeg',
       'RTSP',
       'TCP/UDP',
@@ -65,24 +92,26 @@ const groups: SkillGroup[] = [
       'Sphinx',
       'Selenium',
       'Beautiful Soup',
+      'FluidSynth',
     ],
   },
   {
     label: 'Cloud',
-    skills: ['AWS (EC2)', 'Google Cloud', 'Azure AI'],
+    skills: ['*AWS (EC2)', 'Google Cloud', 'Azure'],
   },
   {
     label: 'Hardware',
     skills: ['Soldering', 'Multimeter', 'Wiring', 'Stepper drivers', 'Sensors'],
   },
-  // PENDING APPROVAL: these come from 🟡 Mara work (DDS bridge, secure boot,
-  // GPS, radio link, multi-lid). Add them once that work is approved:
-  //   DDS (CycloneDDS, Fast DDS), Ansible, Secure Boot / UEFI / LUKS,
-  //   GNSS/RTK (u-blox), MAVLink, PX4, QGroundControl
+  // PENDING APPROVAL: these only come from 🟡 Mara work (DDS bridge, multi-lid,
+  // secure boot, GPS). Add them once that work is approved:
+  //   DDS (CycloneDDS, Fast DDS), Ansible, Secure Boot / UEFI / LUKS, GNSS/RTK (u-blox)
   //
-  // TODO(Chloe): these were on the old site but aren't in the resume doc.
-  // Confirm before adding back: HTML, CSS, Node.js, Express, REST APIs,
-  // PostgreSQL, FastAPI, Vite, Tailwind CSS, Docker Compose, Arduino, FluidSynth.
+  // TODO(Chloe): on the old site but not in the resume doc. Confirm before adding:
+  // HTML, CSS, Node.js, Express, REST APIs, PostgreSQL, FastAPI, Vite,
+  // Tailwind CSS, Docker Compose, Arduino.
+  //
+  // Not listed on purpose: URDF and RL (marked unconfirmed in the resume doc, S4).
 ];
 
 export function Skills() {
@@ -103,14 +132,18 @@ export function Skills() {
                 {group.label}
               </dt>
               <dd className="max-w-[46rem] text-lg leading-relaxed text-ink">
-                {group.skills.map((skill, i) => (
+                {group.skills.map((raw, i) => {
+                  const key = raw.startsWith('*');
+                  const skill = key ? raw.slice(1) : raw;
+                  return (
                   <span key={skill}>
-                    {skill}
+                    {key ? <strong className="font-semibold">{skill}</strong> : skill}
                     {i < group.skills.length - 1 && (
                       <span className="text-signal px-2" aria-hidden="true">·</span>
                     )}
                   </span>
-                ))}
+                  );
+                })}
               </dd>
             </div>
           ))}

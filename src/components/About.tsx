@@ -3,9 +3,9 @@ import { Github, Mail, Download, X } from 'lucide-react';
 import { useState } from 'react';
 import { Highlight } from './ui/hero-highlight';
 
-// Bump this whenever chloe_resume.pdf is replaced, so browsers (and the
+// Bump this whenever Chloe_Hallaert_Resume.pdf is replaced, so browsers (and the
 // embedded preview iframe) fetch the new file instead of a cached old one.
-const RESUME_CACHE_BUST = '2026-08-23';
+const RESUME_CACHE_BUST = '2026-11-08';
 
 function scrollToContact() {
   const section = document.getElementById('contact');
@@ -22,10 +22,10 @@ export function About() {
   const profileImageSrc = `${import.meta.env.BASE_URL}images/profile-picture.png`;
   // Cache-bust so the embedded preview (and repeat visits) always pull the
   // latest resume instead of a stale cached PDF from a previous version.
-  const resumePdfSrc = `${import.meta.env.BASE_URL}images/resume/chloe_resume.pdf?v=${RESUME_CACHE_BUST}`;
+  const resumePdfSrc = `${import.meta.env.BASE_URL}images/resume/Chloe_Hallaert_Resume.pdf?v=${RESUME_CACHE_BUST}`;
 
   return (
-    <section id="about" className="py-20">
+    <section id="about" className="py-20 sm:py-28 border-b border-rule">
       {showResumeModal && (
         <motion.div
           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
@@ -47,7 +47,7 @@ export function About() {
               <div className="flex gap-3">
                 <motion.a
                   href={resumePdfSrc}
-                  download="chloe_resume.pdf"
+                  download="Chloe_Hallaert_Resume.pdf"
                   className="px-4 py-2 bg-white text-signal rounded-lg flex items-center gap-2 font-medium"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -78,20 +78,21 @@ export function About() {
         </motion.div>
       )}
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+      {/* Stacked on phones and tablets; photo + text side by side from laptop width up. */}
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 lg:pl-16">
+        <div className="grid gap-10 sm:gap-14 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16 xl:gap-20 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative flex justify-center md:justify-start md:translate-x-15"
+            className="relative flex justify-center lg:justify-start"
           >
-            <div className="relative max-w-sm md:max-w-md">
+            <div className="relative w-full max-w-[17rem] sm:max-w-xs lg:max-w-md">
               <img
                 src={profileImageSrc}
                 alt="Chloe Hallaert - Profile Picture"
-                className="rounded-2xl shadow-2xl w-full h-auto"
+                className="w-full h-auto rounded-[3px] border border-rule"
               />
             </div>
           </motion.div>
