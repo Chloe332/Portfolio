@@ -163,7 +163,7 @@ export function About() {
             >
               I&apos;m a <Highlight>published author</Highlight> of two educational
               children&apos;s books, and in my free time I enjoy tutoring kids in
-              math and English, dancing, painting, building everything from furniture to robots, and learning new languages
+              math and English, dancing, fencing, rock climbing, painting, building everything from furniture to robots, and learning new languages
               (currently Italian).
             </motion.p>
 
