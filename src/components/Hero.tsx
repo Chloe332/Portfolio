@@ -4,7 +4,7 @@ import { AsciiRobot } from './ui/ascii-robot';
 import { EmailModal } from './ui/email-modal';
 
 // Home: name, one plain line, current status and links, with the ASCII
-// robot on the right (it unravels from a "C", waves, then follows the cursor).
+// robot on the right (it types "CHLOE", turns into the robot, waves, then follows the cursor).
 
 const RESUME_CACHE_BUST = '2026-11-08'; // keep in sync with About.tsx
 const resumePdfSrc = `${import.meta.env.BASE_URL}images/resume/Chloe_Hallaert_Resume.pdf?v=${RESUME_CACHE_BUST}`;

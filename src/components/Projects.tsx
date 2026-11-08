@@ -542,7 +542,7 @@ export function Projects() {
                   </div>
 
                   {projects[selectedProject].details.challenges?.length ? (
-                    <div className="bg-orange-50 border border-orange-200 rounded-xl p-6">
+                    <div className="bg-paper-deep border border-rule rounded-xl p-6">
                       <h4 className="text-xl font-bold mb-3 text-gray-800 flex items-center gap-2">
                         ⚡ Challenges Overcome
                       </h4>
@@ -552,7 +552,7 @@ export function Projects() {
                             key={i}
                             className="flex items-start gap-3 text-gray-700"
                           >
-                            <span className="text-orange-600 mt-1">•</span>
+                            <span className="text-signal mt-1">•</span>
                             <span>{challenge}</span>
                           </li>
                         ))}

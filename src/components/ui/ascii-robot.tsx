@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-// ASCII robot for the hero. A big "C" unravels into the robot, it waves hi,
+// ASCII robot for the hero. It types out "CHLOE", the letters swirl into the robot, it waves hi,
 // then it follows the cursor (eyes and a slight lean). Buttons underneath make
 // it wave, backflip or celebrate (arms up and confetti). Visitors who prefer reduced motion get the
 // finished robot with no intro animation.
@@ -88,22 +88,27 @@ function robotLines(pose: Pose, look: -1 | 0 | 1, mood: Mood, lookV: -1 | 0 | 1 
 
 type Cell = { r: number; c: number; ch: string };
 
-// Cells of a big "C" (a ring with the right side open), in unravel order:
-// starting at the top tip and going counterclockwise to the bottom tip.
-function letterCCells(): Cell[] {
-  const cells: (Cell & { order: number })[] = [];
-  for (let r = 0; r < ROWS; r++) {
-    for (let c = 0; c < COLS; c++) {
-      const dy = r - 6;
-      const dx = (c - 14.5) / 2.1; // characters are about twice as tall as wide
-      const d = Math.hypot(dx, dy);
-      const ang = (Math.atan2(-dy, dx) * 180) / Math.PI;
-      if (d >= 4.3 && d <= 6.2 && Math.abs(ang) > 40) {
-        cells.push({ r, c, ch: '#', order: (ang - 40 + 360) % 360 });
-      }
-    }
-  }
-  return cells.sort((a, b) => a.order - b.order);
+// Opening: "CHLOE" in block letters, typed out one letter at a time.
+const LETTERS: string[][] = [
+  [' ####', '#    ', '#    ', '#    ', '#    ', '#    ', ' ####'], // C
+  ['#   #', '#   #', '#   #', '#####', '#   #', '#   #', '#   #'], // H
+  ['#    ', '#    ', '#    ', '#    ', '#    ', '#    ', '#####'], // L
+  [' ### ', '#   #', '#   #', '#   #', '#   #', '#   #', ' ### '], // O
+  ['#####', '#    ', '#    ', '#### ', '#    ', '#    ', '#####'], // E
+];
+const LETTER_STEP_MS = 220; // time between letters appearing
+
+// Cells of the word, letter by letter, so C leaves first and becomes the head.
+function nameCells(): (Cell & { letter: number })[] {
+  const cells: (Cell & { letter: number })[] = [];
+  LETTERS.forEach((rows, letter) =>
+    rows.forEach((row, r) =>
+      [...row].forEach((ch, c) => {
+        if (ch !== ' ') cells.push({ r: r + 3, c: 2 + letter * 6 + c, ch, letter });
+      }),
+    ),
+  );
+  return cells;
 }
 
 function textCells(lines: string[]): Cell[] {
@@ -113,17 +118,18 @@ function textCells(lines: string[]): Cell[] {
       if (ch !== ' ') cells.push({ r, c, ch });
     }),
   );
-  return cells; // reading order: the C's tip becomes the top of the head
+  return cells; // reading order
 }
 
 function render(grid: string[][]) {
-  return grid.map((row) => row.join('').trimEnd()).join('\n');
+  // Every frame is the same ROWS x COLS block, so nothing shifts as it changes.
+  return grid.map((row) => row.join('')).join('\n');
 }
 
 const emptyGrid = () => Array.from({ length: ROWS }, () => Array<string>(COLS).fill(' '));
 const easeInOut = (t: number) => (t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2);
 
-const HOLD_MS = 700; // show the C before it unravels
+const HOLD_MS = 5 * 220 + 700; // type the name, then hold it briefly before it rearranges
 const SPREAD_MS = 1400; // time between the first and last character leaving
 const FLIGHT_MS = 800; // each character's trip
 const WAVE_FRAMES: Pose[] = ['center', 'right', 'center', 'left', 'center', 'right', 'center', 'left', 'center'];
@@ -162,7 +168,7 @@ export function AsciiRobot({ className = '' }: { className?: string }) {
     let shown = '';
 
     const draw = () => {
-      const text = robotLines(pose, look, mood, lookV).join('\n');
+      const text = robotLines(pose, look, mood, lookV).map((l) => l.padEnd(COLS, ' ')).join('\n');
       if (text !== shown) pre.textContent = shown = text;
     };
 
@@ -296,14 +302,14 @@ export function AsciiRobot({ className = '' }: { className?: string }) {
     };
     scheduleBlink();
 
-    // Unravel: every character flies from a spot on the C to its spot on the robot.
-    const from = letterCCells();
+    // Every character flies from a spot in the name to its spot on the robot.
+    const from = nameCells();
     const to = textCells(robotLines('rest', 0, 'normal'));
     const n = Math.max(from.length, to.length);
     const particles = Array.from({ length: n }, (_, i) => {
       const a = from[Math.floor((i * from.length) / n)];
       const b = to[Math.floor((i * to.length) / n)];
-      return { a, b, delay: HOLD_MS + (i / n) * SPREAD_MS, bend: (i % 2 ? 1 : -1) * (1.5 + (i % 5) * 0.4) };
+      return { a, b, appear: a.letter * LETTER_STEP_MS, delay: HOLD_MS + (i / n) * SPREAD_MS, bend: (i % 2 ? 1 : -1) * (1.5 + (i % 5) * 0.4) };
     });
     const morphEnd = HOLD_MS + SPREAD_MS + FLIGHT_MS;
     const start = performance.now();
@@ -313,9 +319,10 @@ export function AsciiRobot({ className = '' }: { className?: string }) {
         const elapsed = now - start;
         const grid = emptyGrid();
         for (const p of particles) {
+          if (elapsed < p.appear) continue; // letter not typed yet
           const t = Math.max(0, Math.min(1, (elapsed - p.delay) / FLIGHT_MS));
           const e = easeInOut(t);
-          // Curve each path a little so it looks like the C is unwinding.
+          // Curve each path a little so the pieces swirl into place.
           const arc = Math.sin(Math.PI * e) * p.bend;
           const r = Math.round(p.a.r + (p.b.r - p.a.r) * e + arc * 0.5);
           const c = Math.round(p.a.c + (p.b.c - p.a.c) * e + arc);
