@@ -149,10 +149,9 @@ export function About() {
               </Highlight>{' '}
               with a passion for <Highlight>AI</Highlight>, <Highlight>Quant</Highlight>,{' '}
               <Highlight>Robotics</Highlight> and anything software striving to solve
-              real-world problems. My experience spans diverse AI-driven and robotics
-              related projects, including building abstract retrieval APIs, deploying
-              RAG pipelines with vector databases, and developing object detection
-              systems for autonomous navigation.
+              real-world problems. My work spans AI and robotics: real-time
+              firmware, edge ML inference, object detection and tracking models,
+              and RAG pipelines built on vector databases.
             </motion.p>
 
             <motion.p
@@ -163,9 +162,9 @@ export function About() {
               className="text-gray-600 leading-relaxed text-lg"
             >
               I&apos;m a <Highlight>published author</Highlight> of two educational
-              children&apos;s books, and in my free time I enjoy teaching as a math
-              and English tutor, dancing, drawing, and learning new languages
-              (French, Chinese, Italian, American Sign Language).
+              children&apos;s books, and in my free time I enjoy tutoring kids in
+              math and English, dancing, painting, building everything from furniture to robots, and learning new languages
+              (currently Italian).
             </motion.p>
 
             <motion.div

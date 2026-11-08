@@ -1,4 +1,4 @@
-// Skills as a plain grouped list. A leading "*" marks a key skill (shown in bold). Only skills from resume-agent-documentation.md §7
+// Skills as a plain grouped list. A leading "*" marks a key skill (shown first, larger and darker). Only skills from resume-agent-documentation.md §7
 // whose evidence is approved (✅) work. Nothing from the §9 "do not claim" list.
 
 type SkillGroup = { label: string; skills: string[] };
@@ -6,20 +6,18 @@ type SkillGroup = { label: string; skills: string[] };
 const groups: SkillGroup[] = [
   {
     label: 'Languages',
-    skills: ['*Python', '*C', '*C++', 'TypeScript / JavaScript', 'SQL', 'Bash', 'Go (basic)'],
+    skills: ['*Python', '*C', '*C++', '*TypeScript / JavaScript', '*SQL', 'Bash', 'Go (basic)'],
   },
   {
     label: 'Embedded',
     skills: [
       '*STM32 / ARM Cortex-M',
       '*FreeRTOS',
-      'RISC-V',
+      '*RISC-V',
       '*Real-time systems',
       'Interrupts & hardware timers',
       'PWM',
-      'UART',
-      'USB',
-      'GPIO',
+      'UART / USB / GPIO',
       'Motor control',
       'Raspberry Pi',
       '*Embedded Linux',
@@ -32,7 +30,7 @@ const groups: SkillGroup[] = [
     skills: [
       '*ROS 2',
       'ROS',
-      '*micro-ROS',
+      'micro-ROS',
       'MAVLink',
       '*PX4',
       'MAVProxy',
@@ -48,15 +46,15 @@ const groups: SkillGroup[] = [
     label: 'ML & vision',
     skills: [
       '*PyTorch',
-      'TensorFlow',
+      '*TensorFlow',
       '*TensorRT',
       'ONNX',
-      '*INT8 quantization',
-      'Hugging Face Transformers',
+      'INT8 quantization',
+      '*Hugging Face Transformers',
       'MLflow',
-      '*Object detection & tracking',
+      'Object detection & tracking',
       'RF-DETR',
-      'YOLO',
+      '*YOLO',
       'BoT-SORT',
       '*OpenCV',
       'CNNs',
@@ -72,7 +70,7 @@ const groups: SkillGroup[] = [
   },
   {
     label: 'LLMs',
-    skills: ['*LLaMA', '*RAG', 'Milvus (vector DB)', 'Prompt design', 'LLM evaluation', 'Azure AI Language'],
+    skills: ['*RAG', '*Milvus (vector DB)', 'LLaMA', 'Prompt design', 'LLM evaluation', 'Azure AI Language'],
   },
   {
     label: 'Systems & tools',
@@ -82,7 +80,7 @@ const groups: SkillGroup[] = [
       'Git',
       '*GitHub Actions (CI/CD)',
       'pytest',
-      '*gRPC / Protocol Buffers (buf)',
+      'gRPC / Protocol Buffers (buf)',
       'Multithreading & multiprocessing',
       'MVC',
       'ffmpeg',
@@ -97,11 +95,11 @@ const groups: SkillGroup[] = [
   },
   {
     label: 'Cloud',
-    skills: ['*AWS (EC2)', 'Google Cloud', 'Azure'],
+    skills: ['*AWS (EC2)', '*Google Cloud', '*Azure'],
   },
   {
     label: 'Hardware',
-    skills: ['Soldering', 'Multimeter', 'Wiring', 'Stepper drivers', 'Sensors'],
+    skills: ['*Soldering', '*Sensors', 'Multimeter', 'Wiring', 'Stepper drivers'],
   },
   // PENDING APPROVAL: these only come from 🟡 Mara work (DDS bridge, multi-lid,
   // secure boot, GPS). Add them once that work is approved:
@@ -113,6 +111,23 @@ const groups: SkillGroup[] = [
   //
   // Not listed on purpose: URDF and RL (marked unconfirmed in the resume doc, S4).
 ];
+
+// One wrapping row of skills separated by dots. Each skill stays whole when the row wraps.
+function SkillList({ items, className }: { items: string[]; className: string }) {
+  if (items.length === 0) return null;
+  return (
+    <p className={`flex flex-wrap leading-relaxed ${className}`}>
+      {items.map((skill, i) => (
+        <span key={skill} className="max-w-full break-words sm:whitespace-nowrap">
+          {skill}
+          {i < items.length - 1 && (
+            <span className="text-signal font-normal px-2" aria-hidden="true">·</span>
+          )}
+        </span>
+      ))}
+    </p>
+  );
+}
 
 export function Skills() {
   return (
@@ -126,24 +141,20 @@ export function Skills() {
           {groups.map((group) => (
             <div
               key={group.label}
-              className="grid gap-x-10 gap-y-1.5 py-5 border-b border-rule md:grid-cols-[9rem_minmax(0,1fr)]"
+              className="grid grid-cols-[minmax(0,1fr)] gap-x-10 gap-y-1.5 py-5 border-b border-rule md:grid-cols-[9rem_minmax(0,1fr)]"
             >
-              <dt className="font-mono text-xs uppercase tracking-[0.08em] text-ink-soft md:pt-1.5">
+              <dt className="font-mono text-xs sm:text-[0.8rem] uppercase tracking-[0.08em] text-ink md:pt-1">
                 {group.label}
               </dt>
-              <dd className="max-w-[46rem] text-lg leading-relaxed text-ink-soft">
-                {group.skills.map((raw, i) => {
-                  const key = raw.startsWith('*');
-                  const skill = key ? raw.slice(1) : raw;
-                  return (
-                  <span key={skill}>
-                    {key ? <strong className="font-semibold text-ink">{skill}</strong> : skill}
-                    {i < group.skills.length - 1 && (
-                      <span className="text-signal px-2" aria-hidden="true">·</span>
-                    )}
-                  </span>
-                  );
-                })}
+              <dd className="min-w-0 max-w-[46rem]">
+                <SkillList
+                  items={group.skills.filter((s) => s.startsWith('*')).map((s) => s.slice(1))}
+                  className="text-base sm:text-lg font-semibold text-ink"
+                />
+                <SkillList
+                  items={group.skills.filter((s) => !s.startsWith('*'))}
+                  className="mt-0.5 text-sm sm:text-base text-ink-soft opacity-80"
+                />
               </dd>
             </div>
           ))}

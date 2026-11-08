@@ -9,4 +9,5 @@ export const projectImages = {
     navi2: `${import.meta.env.BASE_URL}images/projects/navi2.png`,
     navi3: `${import.meta.env.BASE_URL}images/projects/navi3.png`,
     synth: `${import.meta.env.BASE_URL}images/projects/synth.png`,
+    littlePost: `${import.meta.env.BASE_URL}images/projects/littlepost.jpg`,
   };

@@ -148,6 +148,49 @@ export function Projects() {
       },
     },
     {
+      title: 'Little Post - Postcard Maker',
+      description:
+        'Built a web app for designing postcards with stickers, photos and doodles, then sharing them by link with an animated envelope reveal.',
+      image: projectImages.littlePost,
+      tags: ['TypeScript', 'React', 'Konva', 'Tailwind CSS', 'Supabase', 'Vitest'],
+      github: 'https://github.com/Chloe332/little_post',
+      demo: 'https://chloe332.github.io/little_post/',
+      demoVideo: null,
+      featured: false,
+      details: {
+        overview:
+          'A small online stationery shop: make a postcard, decorate it with original stickers, photos, doodles and words, write a note on the back, and send a friend a link. No accounts are needed for senders or recipients, and shared links work on any device.',
+        role: 'Solo developer and designer',
+        duration: '2026',
+        keyFeatures: [
+          'Canvas editor for placing, resizing, rotating and layering stickers, photos, text and freehand drawings, with undo',
+          'Nine starter themes plus paper colours, patterns, textures and borders',
+          'Original hand-drawn SVG sticker set',
+          'Animated envelope reveal and 3D card flip for the recipient',
+          'Drafts autosave in the browser, including photos',
+          'Link sharing with no sign-up for senders or recipients',
+        ],
+        technicalDetails: [
+          'Built with React, TypeScript, Vite and Tailwind CSS; the card front renders with Konva and the back with HTML',
+          'Postcards are stored as JSON documents with typed elements, positions, layer order and photo references',
+          'Supabase edge function stores shared cards and photos, re-validating every document with the same validator the browser uses',
+          'Photos are shrunk in the browser before upload, and their real file type is checked on the server',
+          'Shared links use 128-bit random tokens; photos live in a private storage bucket',
+          'Rate limiting uses salted IP hashes (no raw IPs stored) plus a site-wide hourly cap',
+          'Static frontend deployed to GitHub Pages through GitHub Actions, which runs the Vitest suite before each build',
+        ],
+        challenges: [
+          'Keeping sharing safe without accounts: validating untrusted documents and uploads on the server',
+          'Saving drafts with photos locally, using localStorage plus IndexedDB',
+          'Making the design feel hand-made rather than templated',
+        ],
+        outcomes: [
+          'Launched a working, publicly hosted postcard maker',
+          'Shared postcards open on any device, even after the sender closes their browser',
+        ],
+      },
+    },
+    {
       title: "Published Educational Children's Books",
       description:
         'Wrote and graphically illustrated two internationally published educational children’s books focused on vocabulary building.',
