@@ -44,7 +44,7 @@ export function Hero() {
       <div className="relative z-10 pointer-events-none max-w-6xl mx-auto px-5 sm:px-8 lg:pl-16 pt-32 pb-10 sm:pt-40 md:pb-24 md:min-h-[100svh] md:flex md:flex-col md:justify-center">
         <p className="font-mono text-[0.72rem] sm:text-xs uppercase tracking-[0.08em] text-ink-soft flex flex-wrap items-center gap-x-2 gap-y-1">
           <span className="inline-block h-2 w-2 rounded-full bg-signal" aria-hidden="true" />
-          <span>Robotics & AI Engineer in SF</span>
+          <span>Software Engineer</span>
           <span aria-hidden="true">·</span>
           <span>open to Summer 2027 internships</span>
         </p>
@@ -58,7 +58,7 @@ export function Hero() {
             </h1>
 
             <p className="mt-8 max-w-xl text-xl sm:text-2xl leading-snug text-ink">
-              Software engineering student at the University of Waterloo. Writing firmware, edge-ML code and training models in SF.
+              Software engineering student at the University of Waterloo, working on robotics, ML and backend systems. Currently a robotics software engineer at Mara in San Francisco.
             </p>
 
             <ul className="pointer-events-auto mt-10 flex flex-wrap gap-x-6 gap-y-3 font-mono text-sm">

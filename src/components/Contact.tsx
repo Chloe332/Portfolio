@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Mail, Linkedin, Github, MapPin } from 'lucide-react';
 import { EmailModal } from './ui/email-modal';
+// import { AsciiCoder } from './ui/ascii-coder';
 
 export function Contact() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,6 +47,8 @@ export function Contact() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
+          {/* ASCII girl coding, turned off for now:
+          <AsciiCoder className="mb-8 text-[clamp(10px,3.2vw,16px)]" /> */}
           <h2 className="text-4xl sm:text-5xl mb-4 font-serif font-normal text-ink tracking-tight">
             Let’s Connect
           </h2>
