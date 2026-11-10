@@ -1,5 +1,4 @@
-// Skills as a plain grouped list. A leading "*" marks a key skill (shown first, larger and darker). Only skills from resume-agent-documentation.md §7
-// whose evidence is approved (✅) work. Nothing from the §9 "do not claim" list.
+// Skills as a plain grouped list. A leading "*" marks a key skill (shown first, larger and darker).
 
 type SkillGroup = { label: string; skills: string[] };
 
@@ -101,15 +100,6 @@ const groups: SkillGroup[] = [
     label: 'Hardware',
     skills: ['*Soldering', '*Sensors', 'Multimeter', 'Wiring', 'Stepper drivers'],
   },
-  // PENDING APPROVAL: these only come from 🟡 Mara work (DDS bridge, multi-lid,
-  // secure boot, GPS). Add them once that work is approved:
-  //   DDS (CycloneDDS, Fast DDS), Ansible, Secure Boot / UEFI / LUKS, GNSS/RTK (u-blox)
-  //
-  // TODO(Chloe): on the old site but not in the resume doc. Confirm before adding:
-  // HTML, CSS, Node.js, Express, REST APIs, PostgreSQL, FastAPI, Vite,
-  // Tailwind CSS, Docker Compose, Arduino.
-  //
-  // Not listed on purpose: URDF and RL (marked unconfirmed in the resume doc, S4).
 ];
 
 // One wrapping row of skills separated by dots. Each skill stays whole when the row wraps.

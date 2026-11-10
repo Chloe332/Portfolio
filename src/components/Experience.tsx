@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 // Work history as an editorial list: dates on the left, role on the right,
 // a few bullets visible, "more" expands in place. Margin notes pull out the
-// numbers (only metrics backed by resume-agent-documentation.md §12).
+// numbers.
 
 type Entry = {
   type: string;
@@ -26,9 +26,6 @@ export function Experience() {
   const [open, setOpen] = useState<Record<number, boolean>>({});
 
   const experiences: Entry[] = [
-    // Mara bullets come only from ✅ items in resume-agent-documentation.md.
-    // 🟡 items (DDS bridge, radio-link fixes, secure boot, GPS, etc.) stay off
-    // the public site until manager approval.
     {
       type: 'work',
       title: 'Robotics Software Engineer',
@@ -38,7 +35,6 @@ export function Experience() {
       description:
         'Software for a drone launcher: real-time firmware, edge ML inference, video streaming and API tooling.',
       details: {
-        // TODO(Chloe): confirm this location is OK to show.
         location: 'San Francisco, California, United States',
         responsibilities: [
           'Designed and built real-time embedded firmware (C, FreeRTOS, STM32) with a ROS 2 action server and status interface; moved step generation to hardware timer interrupts, removing timing jitter and cutting actuation time to ~0.4 s.',
@@ -75,7 +71,6 @@ export function Experience() {
       description:
         'ML and data work for drone detection and tracking: model training, loss design, simulation and dataset tooling.',
       details: {
-        // TODO(Chloe): confirm this location is OK to show.
         location: 'San Francisco, California, United States',
         responsibilities: [
           "Improved a transformer-based tracking model's success rate (AUC) by 350% by designing a custom loss function (asymmetric loss, CIoU with size penalties, label smoothing) and drift-guarded template updates; shipped to production.",
@@ -185,8 +180,6 @@ export function Experience() {
     {
       type: 'work',
       title: 'AI & Robotics Project Member',
-      // No numbers are recorded for this project in the resume doc, so these are
-      // factual highlights. TODO(Chloe): add real numbers (fps, accuracy) if you have them.
       metrics: ['Real-time YOLOv5 detection', 'LIDAR map + semantic room inference', 'Live demo to faculty'],
       organization: 'University of Maryland',
       period: 'July 2022',

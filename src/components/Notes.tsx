@@ -1,10 +1,5 @@
 // Notes: short technical write-ups, laid out like lab reports.
 //
-// Rules (agent.md §0 and §4): technique and reasoning only, nothing about
-// Mara's product, customers or exact results. Relative metrics only.
-// Source: resume-agent-documentation.md F2, F11, F12.
-//
-// TODO(Chloe): these are drafts. Review every sentence before this goes live.
 // To hide a note, set `draft: true`; drafts are filtered out below.
 
 import type { ReactNode } from 'react';
@@ -85,7 +80,6 @@ const notes: Note[] = [
         body: 'After converting a detection model from ONNX to an INT8 TensorRT engine, its accuracy collapsed. Other models quantized without trouble.',
       },
       {
-        // TODO(Chloe): add any hypotheses you ruled out here, if you remember them.
         label: 'How I found it',
         body: 'Per-layer error analysis against full precision, to see where the error entered instead of guessing.',
       },
@@ -114,7 +108,6 @@ const notes: Note[] = [
         body: 'Video from an RTSP IP camera arrived in ROS 2 noticeably behind real time.',
       },
       {
-        // TODO(Chloe): add anything you ruled out first, if you remember it.
         label: 'How I found it',
         body: "OpenCV's decoder buffered about 12 frames before handing one over, so every frame the node published was already old.",
       },
@@ -130,9 +123,6 @@ const notes: Note[] = [
         label: 'Result',
         body: '1.3 s of latency removed.',
       },
-      /* PENDING APPROVAL (🟡 F12): a follow-up on bursty frames, traced with raw
-         TCP/UDP packet captures to variable-bitrate encoding in the camera;
-         constant bitrate gave a steady 5 Hz. Don't publish until approved. */
     ],
   },
 ];

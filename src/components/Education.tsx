@@ -7,18 +7,17 @@ export function Education() {
 
   const educationItems = [
     {
-      title: 'Bachelor of Software Engineering (Honours)',
+      title: 'Bachelor of Software Engineering (Honors)',
       organization: 'University of Waterloo',
       period: '2024 - Present',
       description:
-        'Honours Software Engineering Co-op with coursework in programming, data structures, databases, and formal logic. Awarded the University of Waterloo International Student Scholarship and President\'s Scholarship.',
+        'Honors Software Engineering Co-op with coursework in programming, data structures, databases, and formal logic. Awarded the University of Waterloo International Student Scholarship and President\'s Scholarship.',
       details: {
         location: 'Waterloo, Ontario, Canada',
         highlights: [
           'Accepted into Waterloo\'s highly competitive Software Engineering program',
           'Recipient of the International Student Scholarship (1 of 20 recipients)',
           'Recipient of the President\'s Scholarship for academic excellence',
-          // TODO(Chloe): confirm before re-adding: 'Co-op program with 6 integrated work terms'
         ],
         coursework: [
           // 'CS 137: Programming Principles (C)',
